@@ -5,6 +5,7 @@ import { LabasiHeader } from "./labasi-header"
 import { LabasiOrb } from "./labasi-orb"
 import { ConversationPanel } from "./conversation-panel"
 import { ConversationBar } from "@/components/ui/conversation-bar"
+import { useConversationDB } from "@/lib/use-conversation-db"
 import type { ConversationMessage, AgentState } from "@/types/conversation"
 
 interface LabasiAssistantProps {
@@ -17,17 +18,21 @@ export function LabasiAssistant({ agentId }: LabasiAssistantProps) {
   const [status, setStatus] = useState("disconnected")
   const [agentState, setAgentState] = useState<AgentState>(null)
 
+  const { startSession, saveMessage, endSession } = useConversationDB()
+
   const handleConnect = useCallback(() => {
     setIsConnected(true)
     setStatus("connected")
     setAgentState("listening")
-  }, [])
+    startSession(agentId)
+  }, [agentId, startSession])
 
   const handleDisconnect = useCallback(() => {
     setIsConnected(false)
     setStatus("disconnected")
     setAgentState(null)
-  }, [])
+    endSession()
+  }, [endSession])
 
   const handleMessage = useCallback(
     (message: { source: "user" | "ai"; message: string }) => {
@@ -38,6 +43,7 @@ export function LabasiAssistant({ agentId }: LabasiAssistantProps) {
         timestamp: new Date(),
       }
       setMessages((prev) => [...prev, newMessage])
+      saveMessage(newMessage)
 
       // Update agent state based on who is speaking
       if (message.source === "ai") {
@@ -46,7 +52,7 @@ export function LabasiAssistant({ agentId }: LabasiAssistantProps) {
         setTimeout(() => setAgentState("listening"), 500)
       }
     },
-    []
+    [saveMessage]
   )
 
   const handleError = useCallback((error: Error) => {
