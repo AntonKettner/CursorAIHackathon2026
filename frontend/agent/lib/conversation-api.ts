@@ -2,11 +2,14 @@ import type { ConversationMessage, ConversationSession } from "@/types/conversat
 
 const API_BASE = "/api/conversations"
 
-export async function createSession(agentId: string): Promise<ConversationSession> {
+export async function createSession(
+  agentId: string,
+  projectId: string
+): Promise<ConversationSession> {
   const response = await fetch(API_BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ agentId }),
+    body: JSON.stringify({ agentId, projectId }),
   })
 
   if (!response.ok) {
@@ -17,14 +20,16 @@ export async function createSession(agentId: string): Promise<ConversationSessio
 
   return {
     id: data.id,
+    projectId: data.projectId,
     agentId: data.agentId,
     startedAt: new Date(data.startedAt),
     messages: [],
   }
 }
 
-export async function getAllSessions(): Promise<ConversationSession[]> {
-  const response = await fetch(API_BASE)
+export async function getAllSessions(projectId?: string): Promise<ConversationSession[]> {
+  const url = projectId ? `${API_BASE}?projectId=${projectId}` : API_BASE
+  const response = await fetch(url)
 
   if (!response.ok) {
     throw new Error("Failed to fetch sessions")
@@ -35,6 +40,7 @@ export async function getAllSessions(): Promise<ConversationSession[]> {
   return data.map(
     (session: {
       id: string
+      projectId: string
       agentId: string
       startedAt: string
       endedAt?: string
@@ -46,6 +52,7 @@ export async function getAllSessions(): Promise<ConversationSession[]> {
       }>
     }) => ({
       id: session.id,
+      projectId: session.projectId,
       agentId: session.agentId,
       startedAt: new Date(session.startedAt),
       endedAt: session.endedAt ? new Date(session.endedAt) : undefined,
@@ -74,6 +81,7 @@ export async function getSession(id: string): Promise<ConversationSession | unde
 
   return {
     id: data.id,
+    projectId: data.projectId,
     agentId: data.agentId,
     startedAt: new Date(data.startedAt),
     endedAt: data.endedAt ? new Date(data.endedAt) : undefined,

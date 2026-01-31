@@ -12,13 +12,13 @@ import type { ConversationMessage, ConversationSession } from "@/types/conversat
 export function useConversationDB() {
   const currentSessionIdRef = useRef<string | null>(null)
 
-  const startSession = useCallback((agentId: string): string => {
+  const startSession = useCallback((agentId: string, projectId: string): string => {
     // Generate a temporary ID for immediate return
     const tempId = crypto.randomUUID()
     currentSessionIdRef.current = tempId
 
     // Create session in database asynchronously, update ref with real ID
-    createSession(agentId)
+    createSession(agentId, projectId)
       .then((session) => {
         currentSessionIdRef.current = session.id
       })
@@ -57,8 +57,8 @@ export function useConversationDB() {
       })
   }, [])
 
-  const loadSessions = useCallback((): Promise<ConversationSession[]> => {
-    return getAllSessions()
+  const loadSessions = useCallback((projectId?: string): Promise<ConversationSession[]> => {
+    return getAllSessions(projectId)
   }, [])
 
   return {

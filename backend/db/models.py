@@ -12,6 +12,23 @@ class MessageSource(str, Enum):
     assistant = "assistant"
 
 
+class Project(SQLModel, table=True):
+    """A project containing multiple conversation sessions."""
+
+    __tablename__ = "projects"
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    name: str = Field(max_length=255)
+    description: str | None = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+    sessions: list["ConversationSession"] = Relationship(
+        back_populates="project",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan", "lazy": "selectin"},
+    )
+
+
 class ConversationMessage(SQLModel, table=True):
     """Individual message within a conversation session."""
 
@@ -32,10 +49,12 @@ class ConversationSession(SQLModel, table=True):
     __tablename__ = "conversation_sessions"
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
+    project_id: UUID = Field(foreign_key="projects.id", index=True)
     agent_id: str = Field(index=True)
     started_at: datetime = Field(default_factory=datetime.utcnow)
     ended_at: datetime | None = None
 
+    project: Project = Relationship(back_populates="sessions")
     messages: list[ConversationMessage] = Relationship(
         back_populates="session",
         sa_relationship_kwargs={"cascade": "all, delete-orphan", "lazy": "selectin"},

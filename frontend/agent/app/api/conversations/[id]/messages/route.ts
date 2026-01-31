@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { pool } from "@/lib/db"
+import { query } from "@/lib/db"
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    const result = await pool.query(
+    const result = await query(
       `INSERT INTO conversation_messages (id, session_id, content, source, timestamp)
        VALUES (gen_random_uuid(), $1, $2, $3, NOW())
        RETURNING id, timestamp`,

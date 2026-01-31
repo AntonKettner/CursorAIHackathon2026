@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { pool } from "@/lib/db"
+import { query } from "@/lib/db"
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -8,8 +8,8 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
 
-    const sessionResult = await pool.query(
-      `SELECT id, agent_id, started_at, ended_at
+    const sessionResult = await query(
+      `SELECT id, project_id, agent_id, started_at, ended_at
        FROM conversation_sessions
        WHERE id = $1`,
       [id]
@@ -21,7 +21,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
     const session = sessionResult.rows[0]
 
-    const messagesResult = await pool.query(
+    const messagesResult = await query(
       `SELECT id, content, source, timestamp
        FROM conversation_messages
        WHERE session_id = $1
@@ -31,6 +31,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({
       id: session.id,
+      projectId: session.project_id,
       agentId: session.agent_id,
       startedAt: session.started_at,
       endedAt: session.ended_at,
@@ -53,8 +54,8 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     const { id } = await params
 
     // Delete messages first (or rely on CASCADE if set up)
-    await pool.query(`DELETE FROM conversation_messages WHERE session_id = $1`, [id])
-    await pool.query(`DELETE FROM conversation_sessions WHERE id = $1`, [id])
+    await query(`DELETE FROM conversation_messages WHERE session_id = $1`, [id])
+    await query(`DELETE FROM conversation_sessions WHERE id = $1`, [id])
 
     return NextResponse.json({ success: true })
   } catch (error) {

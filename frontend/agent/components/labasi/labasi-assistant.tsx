@@ -1,31 +1,41 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { LabasiHeader } from "./labasi-header"
 import { LabasiOrb } from "./labasi-orb"
 import { ConversationPanel } from "./conversation-panel"
 import { ConversationBar } from "@/components/ui/conversation-bar"
 import { useConversationDB } from "@/lib/use-conversation-db"
+import { getProject } from "@/lib/project-api"
 import type { ConversationMessage, AgentState } from "@/types/conversation"
+import type { Project } from "@/types/project"
 
 interface LabasiAssistantProps {
   agentId: string
+  projectId: string
 }
 
-export function LabasiAssistant({ agentId }: LabasiAssistantProps) {
+export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
   const [messages, setMessages] = useState<ConversationMessage[]>([])
   const [isConnected, setIsConnected] = useState(false)
   const [status, setStatus] = useState("disconnected")
   const [agentState, setAgentState] = useState<AgentState>(null)
+  const [project, setProject] = useState<Project | null>(null)
 
   const { startSession, saveMessage, endSession } = useConversationDB()
+
+  useEffect(() => {
+    getProject(projectId).then((p) => {
+      if (p) setProject(p)
+    })
+  }, [projectId])
 
   const handleConnect = useCallback(() => {
     setIsConnected(true)
     setStatus("connected")
     setAgentState("listening")
-    startSession(agentId)
-  }, [agentId, startSession])
+    startSession(agentId, projectId)
+  }, [agentId, projectId, startSession])
 
   const handleDisconnect = useCallback(() => {
     setIsConnected(false)
@@ -62,7 +72,12 @@ export function LabasiAssistant({ agentId }: LabasiAssistantProps) {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <LabasiHeader isConnected={isConnected} status={status} />
+      <LabasiHeader
+        isConnected={isConnected}
+        status={status}
+        projectId={projectId}
+        projectName={project?.name}
+      />
 
       {/* Main content area */}
       <main className="flex-1 flex flex-col lg:flex-row gap-6 p-6 overflow-hidden">

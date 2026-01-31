@@ -7,6 +7,7 @@ export interface ConversationMessage {
 
 export interface ConversationSession {
   id: string
+  projectId: string
   agentId: string
   startedAt: Date
   endedAt?: Date

@@ -4,22 +4,33 @@ import { useState, useEffect } from "react"
 import { LabasiHeader } from "./labasi-header"
 import { TranscriptCard } from "./transcript-card"
 import { getAllSessions, deleteSession } from "@/lib/conversation-api"
+import { getProject } from "@/lib/project-api"
 import type { ConversationSession } from "@/types/conversation"
+import type { Project } from "@/types/project"
 
-export function TranscriptsView() {
+interface TranscriptsViewProps {
+  projectId: string
+}
+
+export function TranscriptsView({ projectId }: TranscriptsViewProps) {
   const [sessions, setSessions] = useState<ConversationSession[]>([])
+  const [project, setProject] = useState<Project | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    loadSessions()
-  }, [])
+    loadData()
+  }, [projectId])
 
-  const loadSessions = async () => {
+  const loadData = async () => {
     try {
-      const allSessions = await getAllSessions()
+      const [allSessions, projectData] = await Promise.all([
+        getAllSessions(projectId),
+        getProject(projectId),
+      ])
       setSessions(allSessions)
+      if (projectData) setProject(projectData)
     } catch (error) {
-      console.error("Failed to load sessions:", error)
+      console.error("Failed to load data:", error)
     } finally {
       setIsLoading(false)
     }
@@ -36,7 +47,7 @@ export function TranscriptsView() {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <LabasiHeader />
+      <LabasiHeader projectId={projectId} projectName={project?.name} />
 
       <main className="flex-1 overflow-y-auto p-6">
         <div className="max-w-2xl mx-auto">

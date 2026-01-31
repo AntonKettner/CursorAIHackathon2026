@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { pool } from "@/lib/db"
+import { query } from "@/lib/db"
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -8,7 +8,7 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
 
-    const result = await pool.query(
+    const result = await query(
       `UPDATE conversation_sessions
        SET ended_at = NOW()
        WHERE id = $1
