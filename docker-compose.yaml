@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+
+  frontend:
+    build:
+      context: ./frontend/agent
+      args:
+        - NEXT_PUBLIC_ELEVENLABS_AGENT_ID=${NEXT_PUBLIC_ELEVENLABS_AGENT_ID}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

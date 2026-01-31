@@ -48,8 +48,8 @@ Lab workers often have their hands full—literally. Labasi provides a hands-fre
 
 ### Prerequisites
 
-- Node.js 18+
-- Python 3.12+
+- Node.js 18+ (or Docker)
+- Python 3.12+ (or Docker)
 - [uv](https://docs.astral.sh/uv/) (Python package manager)
 - [pnpm](https://pnpm.io/) (`npm install -g pnpm`)
 - [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) (`brew install cloudflared`)
@@ -112,6 +112,35 @@ cloudflared tunnel --url http://localhost:8000
 1. Go to your agent in the [ElevenLabs dashboard](https://elevenlabs.io/conversational-ai)
 2. Add the cloudflared tunnel URL as an MCP server endpoint
 3. The agent can now use your backend tools
+
+## Docker
+
+Run the application with Docker Compose:
+
+```bash
+# Copy environment template and fill in your values
+cp .env.example .env
+# Edit .env with your ELEVENLABS_API_KEY and NEXT_PUBLIC_ELEVENLABS_AGENT_ID
+
+# Build and run both services
+docker-compose up --build
+```
+
+The frontend will be available at `http://localhost:3000` and the backend at `http://localhost:8000`.
+
+### Running Services Individually
+
+```bash
+# Backend
+docker build -t labasi-backend ./backend
+docker run -p 8000:8000 -e ELEVENLABS_API_KEY=your-key labasi-backend
+
+# Frontend
+docker build -t labasi-frontend \
+  --build-arg NEXT_PUBLIC_ELEVENLABS_AGENT_ID=your-agent-id \
+  ./frontend/agent
+docker run -p 3000:3000 labasi-frontend
+```
 
 ## Project Structure
 
