@@ -4,17 +4,23 @@ This file provides guidance to Claude Code when working with this project.
 
 ## Project Overview
 
-A full-stack application with a Python MCP server backend and a Next.js frontend.
+**Labasi** - A voice-first AI assistant for laboratory environments. Users work with gloves and hands full, so voice is the primary interaction method. The assistant helps with previous experiments, next steps, and chemical parameters.
 
 ## Project Structure
 
 ```
-├── backend/          # FastMCP server (Python)
-│   ├── main.py       # MCP server entry point
+├── backend/              # FastMCP server (Python)
+│   ├── main.py           # MCP server entry point
 │   └── pyproject.toml
 ├── frontend/
-│   ├── agent/        # Next.js app
-│   └── createAgent.mts
+│   ├── agent/            # Next.js app (Labasi UI)
+│   │   ├── app/          # Next.js app router
+│   │   ├── components/
+│   │   │   ├── ui/       # ElevenLabs UI components
+│   │   │   └── labasi/   # Custom Labasi components
+│   │   └── types/        # TypeScript types
+│   ├── createAgent.mts   # Script to create ElevenLabs agent
+│   └── package.json      # ElevenLabs SDK for agent creation
 ```
 
 ## Backend (FastMCP Server)
@@ -22,39 +28,40 @@ A full-stack application with a Python MCP server backend and a Next.js frontend
 **Tech Stack:** Python 3.12+, FastMCP 3.0.0b1, uv, ruff
 
 ```bash
-# Install dependencies
 cd backend && uv sync --prerelease=allow
-
-# Run the server
-uv run python main.py
-
-# Lint/format
-uv run ruff check .
-uv run ruff format .
+uv run python main.py        # Runs at http://0.0.0.0:8000/mcp
+uv run ruff check . && uv run ruff format .
 ```
 
-Server runs at `http://0.0.0.0:8000/mcp`
+## Frontend (Labasi UI)
 
-## Frontend (Next.js)
-
-**Tech Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, pnpm
+**Tech Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, ElevenLabs UI
 
 ```bash
-# Install dependencies
 cd frontend/agent && pnpm install
-
-# Development server
-pnpm dev
-
-# Build for production
-pnpm build
-
-# Run production build
-pnpm start
-
-# Lint
-pnpm lint
+pnpm dev                     # Development server at http://localhost:3000
+pnpm build && pnpm start     # Production build
 ```
+
+### Environment Variables
+
+Create `frontend/agent/.env.local`:
+```
+NEXT_PUBLIC_ELEVENLABS_AGENT_ID=your-agent-id
+```
+
+### Key Components
+
+- **LabasiAssistant** - Main orchestrator component
+- **LabasiOrb** - 3D animated visualization (cyan/blue lab theme)
+- **ConversationBar** - Voice/text input with waveform
+- **ConversationPanel** - Chat history display
+
+### ElevenLabs Integration
+
+- Agent configured via ElevenLabs dashboard or `createAgent.mts`
+- UI components from `@elevenlabs/react` and ElevenLabs UI registry
+- Real-time voice conversation via WebRTC
 
 ## Adding MCP Tools
 
