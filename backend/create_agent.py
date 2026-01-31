@@ -31,7 +31,7 @@ response = elevenlabs.conversational_ai.agents.create(
     tags=["test"],
     conversation_config={
         "tts": {
-            "voice_id": "aMSt68OGf4xUZAnLpTU8",
+            "voice_id": "hpp4J3VqNfWAUOO0d1Us",
             "model_id": "eleven_flash_v2",
         },
         "agent": {
