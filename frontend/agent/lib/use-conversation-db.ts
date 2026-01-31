@@ -2,33 +2,31 @@
 
 import { useRef, useCallback } from "react"
 import {
-  saveSession,
-  getSession,
+  createSession,
   getAllSessions,
-  addMessageToSession,
-} from "./conversation-db"
+  addMessage,
+  endSession as endSessionApi,
+} from "./conversation-api"
 import type { ConversationMessage, ConversationSession } from "@/types/conversation"
 
 export function useConversationDB() {
   const currentSessionIdRef = useRef<string | null>(null)
 
   const startSession = useCallback((agentId: string): string => {
-    const sessionId = crypto.randomUUID()
-    currentSessionIdRef.current = sessionId
+    // Generate a temporary ID for immediate return
+    const tempId = crypto.randomUUID()
+    currentSessionIdRef.current = tempId
 
-    const session: ConversationSession = {
-      id: sessionId,
-      agentId,
-      startedAt: new Date(),
-      messages: [],
-    }
+    // Create session in database asynchronously, update ref with real ID
+    createSession(agentId)
+      .then((session) => {
+        currentSessionIdRef.current = session.id
+      })
+      .catch((error) => {
+        console.error("Failed to create session:", error)
+      })
 
-    // Save initial session asynchronously
-    saveSession(session).catch((error) => {
-      console.error("Failed to save session:", error)
-    })
-
-    return sessionId
+    return tempId
   }, [])
 
   const saveMessage = useCallback((message: ConversationMessage): void => {
@@ -38,7 +36,10 @@ export function useConversationDB() {
       return
     }
 
-    addMessageToSession(sessionId, message).catch((error) => {
+    addMessage(sessionId, {
+      content: message.content,
+      source: message.source,
+    }).catch((error) => {
       console.error("Failed to save message:", error)
     })
   }, [])
@@ -47,13 +48,7 @@ export function useConversationDB() {
     const sessionId = currentSessionIdRef.current
     if (!sessionId) return
 
-    getSession(sessionId)
-      .then((session) => {
-        if (session) {
-          session.endedAt = new Date()
-          return saveSession(session)
-        }
-      })
+    endSessionApi(sessionId)
       .catch((error) => {
         console.error("Failed to end session:", error)
       })

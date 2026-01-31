@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { LabasiHeader } from "./labasi-header"
 import { TranscriptCard } from "./transcript-card"
-import { getAllSessions, deleteSession } from "@/lib/conversation-db"
+import { getAllSessions, deleteSession } from "@/lib/conversation-api"
 import type { ConversationSession } from "@/types/conversation"
 
 export function TranscriptsView() {
