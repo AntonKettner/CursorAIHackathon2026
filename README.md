@@ -81,8 +81,9 @@ cd frontend/agent
 pnpm install
 
 # Create environment file
-echo "NEXT_PUBLIC_ELEVENLABS_AGENT_ID=your-agent-id-here" > .env.local
-# Replace with the agent_id from step 1
+cp env.local.example .env.local
+
+# Replace your-agent-id-here with the agent_id from step 1
 ```
 
 ### 3. Run the Application
