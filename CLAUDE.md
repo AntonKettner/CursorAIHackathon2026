@@ -11,6 +11,7 @@ This file provides guidance to Claude Code when working with this project.
 ```
 ├── backend/              # FastMCP server (Python)
 │   ├── main.py           # MCP server entry point
+│   ├── create_agent.py   # Script to create ElevenLabs agent
 │   └── pyproject.toml
 ├── frontend/
 │   ├── agent/            # Next.js app (Labasi UI)
@@ -19,19 +20,33 @@ This file provides guidance to Claude Code when working with this project.
 │   │   │   ├── ui/       # ElevenLabs UI components
 │   │   │   └── labasi/   # Custom Labasi components
 │   │   └── types/        # TypeScript types
-│   ├── createAgent.mts   # Script to create ElevenLabs agent
-│   └── package.json      # ElevenLabs SDK for agent creation
+│   └── package.json
 ```
 
 ## Backend (FastMCP Server)
 
-**Tech Stack:** Python 3.12+, FastMCP 3.0.0b1, uv, ruff
+**Tech Stack:** Python 3.12+, FastMCP 3.0.0b1, ElevenLabs SDK, uv, ruff
 
 ```bash
 cd backend && uv sync --prerelease=allow
 uv run python main.py        # Runs at http://0.0.0.0:8000/mcp
 uv run ruff check . && uv run ruff format .
 ```
+
+### Environment Variables
+
+Create `backend/.env` (see `env.example`):
+```
+ELEVENLABS_API_KEY=your-api-key-here
+```
+
+### Creating an ElevenLabs Agent
+
+```bash
+cd backend && uv run python create_agent.py
+```
+
+This will create a new agent and print the agent ID. Use this ID in the frontend configuration.
 
 ## Frontend (Labasi UI)
 
@@ -59,7 +74,7 @@ NEXT_PUBLIC_ELEVENLABS_AGENT_ID=your-agent-id
 
 ### ElevenLabs Integration
 
-- Agent configured via ElevenLabs dashboard or `createAgent.mts`
+- Agent configured via ElevenLabs dashboard or `backend/create_agent.py`
 - UI components from `@elevenlabs/react` and ElevenLabs UI registry
 - Real-time voice conversation via WebRTC
 
