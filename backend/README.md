@@ -11,7 +11,7 @@ uv sync --prerelease=allow
 ## Run
 
 ```bash
-uv run python main.py
+uv run python mcp_server.py
 ```
 
 Server starts at `http://localhost:8000/mcp`.
