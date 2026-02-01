@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Labasi - Laboratory Assistant",
+  title: "labasi - Laboratory Assistant",
   description: "Voice-first AI assistant for laboratory environments",
 };
 
