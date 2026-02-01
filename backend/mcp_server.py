@@ -45,171 +45,298 @@ def get_project_id() -> str | None:
 
 PUBCHEM_BASE_URL = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 
-# Available PubChem compound properties
-PubchemCompoundProperty = Literal[
-    "MolecularFormula",
-    "MolecularWeight",
-    "InChI",
-    "InChIKey",
-    "IUPACName",
-    "Title",
-    "XLogP",
-    "ExactMass",
-    "MonoisotopicMass",
-    "TPSA",
-    "Complexity",
-    "Charge",
-    "HBondDonorCount",
-    "HBondAcceptorCount",
-    "RotatableBondCount",
-    "HeavyAtomCount",
-    "CovalentUnitCount",
-]
+
+class CompoundMatch(BaseModel):
+    """A single compound match with its properties and the search term that found it."""
+
+    search_term: str = Field(description="The search term that found this compound.")
+    cid: int = Field(description="The PubChem Compound ID.")
+    title: str | None = Field(default=None, description="Common name of the compound.")
+    iupac_name: str | None = Field(default=None, description="IUPAC systematic name.")
+    molecular_formula: str | None = Field(
+        default=None, description="Molecular formula."
+    )
+    molecular_weight: float | None = Field(
+        default=None, description="Molecular weight in g/mol."
+    )
+    inchi_key: str | None = Field(default=None, description="InChIKey identifier.")
 
 
-class PubchemSearchResult(BaseModel):
-    """Result of a PubChem compound search."""
+class CompoundLookupResult(BaseModel):
+    """Result of a compound lookup with all matches from multiple search terms."""
 
-    cids: list[int] = Field(
-        description="A list of matching PubChem Compound IDs (CIDs). "
-        "This is often a single result but can be multiple for ambiguous names."
+    query: str = Field(description="The original query provided by the user.")
+    search_terms_tried: list[str] = Field(
+        description="All search term variations that were tried."
+    )
+    matches: list[CompoundMatch] = Field(
+        description="All unique compounds found across all search terms. "
+        "The LLM should examine these and pick the most relevant one based on context."
+    )
+    recommendation: str = Field(
+        description="A note about which match is likely the intended compound, if determinable."
     )
 
 
-class CompoundProperties(BaseModel):
-    """Properties of a single PubChem compound."""
+def _generate_search_variations(query: str) -> list[str]:
+    """Generate multiple search term variations for a compound query.
 
-    CID: int = Field(description="The PubChem Compound ID.")
-    MolecularFormula: str | None = None
-    MolecularWeight: float | None = None
-    InChI: str | None = None
-    InChIKey: str | None = None
-    IUPACName: str | None = None
-    Title: str | None = None
-    XLogP: float | None = None
-    ExactMass: float | None = None
-    MonoisotopicMass: float | None = None
-    TPSA: float | None = None
-    Complexity: float | None = None
-    Charge: int | None = None
-    HBondDonorCount: int | None = None
-    HBondAcceptorCount: int | None = None
-    RotatableBondCount: int | None = None
-    HeavyAtomCount: int | None = None
-    CovalentUnitCount: int | None = None
-
-
-class PubchemCompoundPropertiesResult(BaseModel):
-    """Result of fetching compound properties from PubChem."""
-
-    results: list[CompoundProperties] = Field(
-        description="A list of property results, with one object for each successfully retrieved CID."
-    )
-
-
-@mcp.tool
-async def pubchem_search_compound_by_identifier(
-    identifier_type: Annotated[
-        Literal["name", "smiles", "inchikey"],
-        Field(description="The type of chemical identifier being provided."),
-    ],
-    identifier: Annotated[
-        str,
-        Field(
-            min_length=1,
-            description="The identifier string. Examples: 'aspirin' for name, "
-            "'CC(=O)Oc1ccccc1C(=O)O' for SMILES, or a valid InChIKey.",
-        ),
-    ],
-) -> PubchemSearchResult:
+    Creates variations by:
+    - Case changes (lower, title, upper)
+    - Removing/adding common suffixes (dye, reagent, solution, etc.)
+    - Hyphenation variants (spaces <-> hyphens)
+    - Individual word extraction for multi-word queries
+    - Stereochemistry prefix removal (D-, L-, etc.)
+    - Common chemical synonyms
     """
-    Searches for PubChem Compound IDs (CIDs) using a common chemical identifier
-    like a name (e.g., 'aspirin'), SMILES string, or InChIKey.
+    variations = []
+    seen = set()
 
-    This is the first step for most compound-related workflows.
-    """
-    path = f"/compound/{identifier_type}/{quote(identifier, safe='')}/cids/JSON"
+    def add_variation(v: str) -> None:
+        v = v.strip()
+        if v and v.lower() not in seen:
+            variations.append(v)
+            seen.add(v.lower())
+
+    # Original query
+    add_variation(query)
+
+    # Case variations
+    add_variation(query.lower())
+    add_variation(query.upper())
+    add_variation(query.title())
+
+    # Hyphenation variants: "CY5 dye" <-> "CY5-dye"
+    lower_query = query.lower()
+    if " " in query:
+        add_variation(query.replace(" ", "-"))
+        add_variation(query.replace(" ", ""))
+    if "-" in query:
+        add_variation(query.replace("-", " "))
+        add_variation(query.replace("-", ""))
+
+    # Extract individual words for multi-word queries
+    words = query.replace("-", " ").split()
+    if len(words) >= 2:
+        # Add each significant word (skip very short ones)
+        for word in words:
+            if len(word) >= 2:
+                add_variation(word)
+                add_variation(word.upper())
+                add_variation(word.title())
+
+    # Stereochemistry prefix removal
+    for prefix in ["dl-", "d-", "l-", "(+)-", "(-)-", "(±)-", "r-", "s-"]:
+        if lower_query.startswith(prefix):
+            without_prefix = query[len(prefix) :]
+            add_variation(without_prefix)
+
+    return variations
+
+
+async def _get_autocomplete_suggestions(
+    client: httpx.AsyncClient, term: str
+) -> list[str]:
+    """Use PubChem's autocomplete API to get fuzzy-matched compound name suggestions."""
+    url = f"https://pubchem.ncbi.nlm.nih.gov/rest/autocomplete/compound/{quote(term, safe='')}/json?limit=5"
+
+    try:
+        response = await client.get(url, timeout=10.0)
+        if response.status_code != 200:
+            return []
+        data = response.json()
+
+        # Autocomplete returns {"dictionary_terms": {"compound": ["name1", "name2", ...]}}
+        dictionary_terms = data.get("dictionary_terms", {})
+        suggestions = dictionary_terms.get("compound", [])
+        return suggestions if isinstance(suggestions, list) else []
+    except Exception:
+        return []
+
+
+async def _search_single_term(client: httpx.AsyncClient, term: str) -> list[int]:
+    """Search PubChem for a single term and return CIDs."""
+    path = f"/compound/name/{quote(term, safe='')}/cids/JSON"
     url = f"{PUBCHEM_BASE_URL}{path}"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, timeout=30.0)
-
+    try:
+        response = await client.get(url, timeout=15.0)
         if response.status_code == 404:
-            # No compound found - return empty list
-            return PubchemSearchResult(cids=[])
-
+            return []
         response.raise_for_status()
         data = response.json()
 
-    # Check for PubChem API fault
-    if "Fault" in data:
-        fault = data["Fault"]
-        raise ValueError(f"PubChem API Fault: {fault.get('Message', 'Unknown error')}")
+        if "Fault" in data:
+            return []
 
-    # Extract CIDs from response
-    identifier_list = data.get("IdentifierList", {})
-    cids = identifier_list.get("CID", [])
-
-    if not isinstance(cids, list):
-        return PubchemSearchResult(cids=[])
-
-    return PubchemSearchResult(cids=cids)
+        identifier_list = data.get("IdentifierList", {})
+        cids = identifier_list.get("CID", [])
+        return cids if isinstance(cids, list) else []
+    except Exception:
+        return []
 
 
-@mcp.tool
-async def pubchem_fetch_compound_properties(
-    cids: Annotated[
-        list[int],
-        Field(
-            min_length=1,
-            description="An array of one or more PubChem Compound IDs (CIDs) to fetch properties for. Must be positive integers.",
-        ),
-    ],
-    properties: Annotated[
-        list[PubchemCompoundProperty],
-        Field(
-            min_length=1,
-            description="A list of physicochemical properties to retrieve for each CID.",
-        ),
-    ],
-) -> PubchemCompoundPropertiesResult:
-    """
-    Fetches a list of specified physicochemical properties (e.g., MolecularWeight, XLogP)
-    for one or more PubChem Compound IDs (CIDs). Essential for retrieving detailed
-    chemical data in bulk.
-    """
-    cids_string = ",".join(str(cid) for cid in cids)
-    properties_string = ",".join(properties)
+async def _fetch_properties_for_cids(
+    client: httpx.AsyncClient, cids: list[int]
+) -> dict[int, dict]:
+    """Fetch properties for a list of CIDs."""
+    if not cids:
+        return {}
 
-    path = f"/compound/cid/{cids_string}/property/{properties_string}/JSON"
+    cids_string = ",".join(str(cid) for cid in cids[:10])  # Limit to 10 CIDs
+    properties = "Title,IUPACName,MolecularFormula,MolecularWeight,InChIKey"
+    path = f"/compound/cid/{cids_string}/property/{properties}/JSON"
     url = f"{PUBCHEM_BASE_URL}{path}"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, timeout=30.0)
-
+    try:
+        response = await client.get(url, timeout=15.0)
         if response.status_code == 404:
-            # No compounds found - return empty results
-            return PubchemCompoundPropertiesResult(results=[])
-
+            return {}
         response.raise_for_status()
         data = response.json()
 
-    # Check for PubChem API fault
-    if "Fault" in data:
-        fault = data["Fault"]
-        raise ValueError(f"PubChem API Fault: {fault.get('Message', 'Unknown error')}")
+        if "Fault" in data:
+            return {}
 
-    # Extract properties from response
-    property_table = data.get("PropertyTable", {})
-    compound_properties = property_table.get("Properties", [])
+        property_table = data.get("PropertyTable", {})
+        compound_properties = property_table.get("Properties", [])
 
-    if not compound_properties:
-        raise ValueError(
-            "Received an unexpected response format from PubChem API. Ensure CIDs are valid."
+        return {props["CID"]: props for props in compound_properties}
+    except Exception:
+        return {}
+
+
+@mcp.tool
+async def search_compound(
+    names: Annotated[
+        list[str],
+        Field(
+            min_length=1,
+            max_length=4,
+            description="List of 1-4 possible compound names to search. Include variations like: "
+            "common name, abbreviation, chemical name, trade name. "
+            "Example: ['Cy5', 'cyanine 5', 'Cy5 dye'] or ['aspirin', 'acetylsalicylic acid']",
+        ),
+    ],
+) -> CompoundLookupResult:
+    """
+    Search for chemical compounds in PubChem using multiple name variations.
+
+    Provide 1-4 possible names for the compound (common name, abbreviation, chemical name, etc.).
+    Each name is processed with fuzzy matching to find the best results.
+
+    Returns all matching compounds with their properties (name, formula, molecular weight, etc.)
+    so you can pick the most relevant one based on context.
+    """
+    import asyncio
+
+    async with httpx.AsyncClient() as client:
+        # Step 1: Generate search variations from ALL provided names
+        all_variations = []
+        seen_variations = set()
+        for name in names:
+            for variation in _generate_search_variations(name):
+                if variation.lower() not in seen_variations:
+                    all_variations.append(variation)
+                    seen_variations.add(variation.lower())
+
+        # Step 2: Run autocomplete on the original names for fuzzy matching
+        autocomplete_tasks = [
+            _get_autocomplete_suggestions(client, name) for name in names
+        ]
+        autocomplete_results = await asyncio.gather(*autocomplete_tasks)
+
+        # Step 3: Combine all search terms
+        all_search_terms = []
+        seen = set()
+
+        def add_term(term: str) -> None:
+            lower = term.lower().strip()
+            if lower and lower not in seen:
+                all_search_terms.append(term.strip())
+                seen.add(lower)
+
+        # Add autocomplete suggestions first (best fuzzy matches)
+        for suggestions in autocomplete_results:
+            for suggestion in suggestions[:3]:  # Top 3 from each autocomplete
+                add_term(suggestion)
+
+        # Add all variations
+        for term in all_variations:
+            add_term(term)
+
+        # Limit to reasonable number of searches
+        search_terms = all_search_terms[:12]
+
+        # Step 4: Search all terms in parallel
+        search_tasks = [_search_single_term(client, term) for term in search_terms]
+        search_results = await asyncio.gather(*search_tasks)
+
+        # Collect all unique CIDs with the search term that found them
+        cid_to_terms: dict[int, list[str]] = {}
+        for term, cids in zip(search_terms, search_results, strict=True):
+            for cid in cids[:3]:  # Limit results per term
+                if cid not in cid_to_terms:
+                    cid_to_terms[cid] = []
+                cid_to_terms[cid].append(term)
+
+        all_cids = list(cid_to_terms.keys())
+        original_query = ", ".join(names)
+
+        if not all_cids:
+            # Collect all autocomplete suggestions for the error message
+            all_suggestions = []
+            for suggestions in autocomplete_results:
+                all_suggestions.extend(suggestions[:2])
+
+            suggestion_note = ""
+            if all_suggestions:
+                unique_suggestions = list(dict.fromkeys(all_suggestions))[:5]
+                suggestion_note = f" PubChem suggested: {', '.join(unique_suggestions)}"
+
+            return CompoundLookupResult(
+                query=original_query,
+                search_terms_tried=search_terms,
+                matches=[],
+                recommendation=f"No compounds found for '{original_query}'.{suggestion_note} "
+                "Try different names or check the spelling.",
+            )
+
+        # Fetch properties for all found CIDs (limit to 15)
+        properties = await _fetch_properties_for_cids(client, all_cids[:15])
+
+        # Build matches
+        matches = []
+        for cid in all_cids[:15]:
+            props = properties.get(cid, {})
+            # Use the first search term that found this CID
+            search_term = cid_to_terms[cid][0]
+            matches.append(
+                CompoundMatch(
+                    search_term=search_term,
+                    cid=cid,
+                    title=props.get("Title"),
+                    iupac_name=props.get("IUPACName"),
+                    molecular_formula=props.get("MolecularFormula"),
+                    molecular_weight=props.get("MolecularWeight"),
+                    inchi_key=props.get("InChIKey"),
+                )
+            )
+
+        # Generate recommendation
+        if len(matches) == 1:
+            recommendation = f"Found exactly one match: {matches[0].title or matches[0].iupac_name} (CID: {matches[0].cid})"
+        elif len(matches) <= 3:
+            recommendation = "Found multiple matches. Choose based on molecular weight and formula that fits your context."
+        else:
+            recommendation = f"Found {len(matches)} matches. The first few are most likely relevant. Choose based on your experimental context."
+
+        return CompoundLookupResult(
+            query=original_query,
+            search_terms_tried=search_terms,
+            matches=matches,
+            recommendation=recommendation,
         )
-
-    results = [CompoundProperties(**props) for props in compound_properties]
-    return PubchemCompoundPropertiesResult(results=results)
 
 
 # =============================================================================
@@ -221,40 +348,40 @@ TodoOperation = Literal["add", "edit", "show"]
 
 
 class NoteResult(BaseModel):
-    """Result of a note operation."""
+    """Result of a note operation - designed for LLM consumption."""
 
-    id: str = Field(description="The UUID of the note.")
-    operation: NoteOperation = Field(description="The operation that was performed.")
-    title: str | None = Field(default=None, description="The title of the note.")
-    content: str | None = Field(default=None, description="The content of the note.")
+    status: str = Field(description="Short confirmation of the action taken.")
+    instruction: str = Field(
+        description="Instruction for LLM: respond with forward-thinking advice and a helpful comment."
+    )
 
 
 class NotesListResult(BaseModel):
-    """Result of listing notes."""
+    """Result of listing notes - designed for LLM consumption."""
 
-    notes: list[NoteResult] = Field(description="List of notes.")
-    operation: Literal["show"] = Field(
-        default="show", description="The operation performed."
+    status: str = Field(description="Short confirmation of the action taken.")
+    notes_summary: str = Field(description="Brief summary of notes for context.")
+    instruction: str = Field(
+        description="Instruction for LLM: respond with forward-thinking advice and a helpful comment."
     )
 
 
 class TodoResult(BaseModel):
-    """Result of a todo operation."""
+    """Result of a todo operation - designed for LLM consumption."""
 
-    id: str = Field(description="The UUID of the todo.")
-    operation: TodoOperation = Field(description="The operation that was performed.")
-    content: str | None = Field(default=None, description="The content of the todo.")
-    status: str | None = Field(
-        default=None, description="The status of the todo (open or done)."
+    status: str = Field(description="Short confirmation of the action taken.")
+    instruction: str = Field(
+        description="Instruction for LLM: respond with forward-thinking advice and a helpful comment."
     )
 
 
 class TodosListResult(BaseModel):
-    """Result of listing todos."""
+    """Result of listing todos - designed for LLM consumption."""
 
-    todos: list[TodoResult] = Field(description="List of todos.")
-    operation: Literal["show"] = Field(
-        default="show", description="The operation performed."
+    status: str = Field(description="Short confirmation of the action taken.")
+    todos_summary: str = Field(description="Brief summary of todos for context.")
+    instruction: str = Field(
+        description="Instruction for LLM: respond with forward-thinking advice and a helpful comment."
     )
 
 
@@ -323,10 +450,8 @@ async def note(
             await session.refresh(new_note)
 
             return NoteResult(
-                id=str(new_note.id),
-                operation="add",
-                title=new_note.title,
-                content=new_note.content,
+                status=f"✓ Noted: '{new_note.title}'",
+                instruction="Respond with forward-thinking advice about next steps and a helpful comment related to this note.",
             )
 
         elif operation == "edit":
@@ -367,10 +492,8 @@ async def note(
             await session.refresh(existing_note)
 
             return NoteResult(
-                id=str(existing_note.id),
-                operation="edit",
-                title=existing_note.title,
-                content=existing_note.content,
+                status=f"✓ Updated: '{existing_note.title}'",
+                instruction="Respond with forward-thinking advice about next steps and a helpful comment related to this update.",
             )
 
         elif operation == "show":
@@ -382,16 +505,17 @@ async def note(
             result = await session.execute(statement)
             notes = result.scalars().all()
 
-            return NotesListResult(
-                notes=[
-                    NoteResult(
-                        id=str(n.id),
-                        operation="show",
-                        title=n.title,
-                        content=n.content,
-                    )
+            if not notes:
+                notes_summary = "No notes found for this project."
+            else:
+                notes_summary = "\n".join(
+                    f"• {n.title}: {n.content[:100]}{'...' if len(n.content) > 100 else ''}"
                     for n in notes
-                ]
+                )
+            return NotesListResult(
+                status=f"✓ Found {len(notes)} note(s)",
+                notes_summary=notes_summary,
+                instruction="Respond with forward-thinking advice based on these notes and a helpful comment.",
             )
 
         raise ValueError(f"Invalid operation: {operation}")
@@ -467,10 +591,8 @@ async def todo(
             await session.refresh(new_todo)
 
             return TodoResult(
-                id=str(new_todo.id),
-                operation="add",
-                content=new_todo.content,
-                status=new_todo.status.value,
+                status=f"✓ Added todo: '{new_todo.content[:50]}{'...' if len(new_todo.content) > 50 else ''}'",
+                instruction="Respond with forward-thinking advice about prioritizing this task and a helpful comment.",
             )
 
         elif operation == "edit":
@@ -510,11 +632,12 @@ async def todo(
             await session.flush()
             await session.refresh(existing_todo)
 
+            status_msg = (
+                "marked done" if existing_todo.status == TodoStatus.done else "updated"
+            )
             return TodoResult(
-                id=str(existing_todo.id),
-                operation="edit",
-                content=existing_todo.content,
-                status=existing_todo.status.value,
+                status=f"✓ Todo {status_msg}: '{existing_todo.content[:50]}{'...' if len(existing_todo.content) > 50 else ''}'",
+                instruction="Respond with forward-thinking advice about next steps and a helpful comment.",
             )
 
         elif operation == "show":
@@ -527,16 +650,19 @@ async def todo(
             result = await session.execute(statement)
             todos = result.scalars().all()
 
-            return TodosListResult(
-                todos=[
-                    TodoResult(
-                        id=str(t.id),
-                        operation="show",
-                        content=t.content,
-                        status=t.status.value,
-                    )
+            if not todos:
+                todos_summary = "No todos found for this project."
+            else:
+                todos_summary = "\n".join(
+                    f"{'✓' if t.status == TodoStatus.done else '○'} {t.content[:80]}{'...' if len(t.content) > 80 else ''}"
                     for t in todos
-                ]
+                )
+            open_count = sum(1 for t in todos if t.status == TodoStatus.open)
+            done_count = sum(1 for t in todos if t.status == TodoStatus.done)
+            return TodosListResult(
+                status=f"✓ Found {len(todos)} todo(s) ({open_count} open, {done_count} done)",
+                todos_summary=todos_summary,
+                instruction="Respond with forward-thinking advice about prioritizing these tasks and a helpful comment.",
             )
 
         raise ValueError(f"Invalid operation: {operation}")
