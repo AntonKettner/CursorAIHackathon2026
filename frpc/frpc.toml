@@ -1,0 +1,27 @@
+serverAddr = "dashboard.dev.justadd.ai"
+serverPort = 7000
+
+[auth]
+token = ''
+
+[log]
+level = "debug"
+
+[transport.tls]
+enable = true
+
+[[proxies]]
+name = "{{ .Envs.FRPC_NAME }}"
+type = "http"
+localIP = "frontend"
+localPort = 3000
+
+subdomain = "{{ .Envs.FRPC_NAME }}"
+
+[[proxies]]
+name = "{{ .Envs.FRPC_NAME }}-api"
+type = "http"
+localIP = "backend"
+localPort = 8000
+
+subdomain = "{{ .Envs.FRPC_NAME }}-api"

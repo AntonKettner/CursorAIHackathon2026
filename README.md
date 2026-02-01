@@ -203,3 +203,7 @@ pnpm build
 ## License
 
 MIT
+
+## Disclaimer
+
+The deployment infrastructure (OVH virtual private server and domain) used for this hackathon project was provided with permission from our employer for demonstration purposes. This has no effect on the code, licensing, or contributions to this project.
