@@ -68,8 +68,8 @@ export function ProjectSidebar({ projectId, refreshKey }: ProjectSidebarProps) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 h-full overflow-hidden">
-      <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
+    <div className="flex flex-col lg:flex-row gap-4 lg:h-full lg:overflow-hidden">
+      <div className="min-h-[250px] lg:min-h-0 lg:flex-1 min-w-0 flex flex-col lg:overflow-hidden">
         <LogbookPanel
           projectId={projectId}
           notes={notes}
@@ -81,7 +81,7 @@ export function ProjectSidebar({ projectId, refreshKey }: ProjectSidebarProps) {
           isLoading={isLoading}
         />
       </div>
-      <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
+      <div className="min-h-[200px] lg:min-h-0 lg:flex-1 min-w-0 flex flex-col lg:overflow-hidden">
         <NoteDetailPanel
           note={selectedNote}
           onClose={handleNoteClose}
