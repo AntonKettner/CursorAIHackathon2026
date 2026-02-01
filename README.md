@@ -52,8 +52,8 @@ Lab workers often have their hands full—literally. Labasi provides a hands-fre
 - Python 3.12+ (or Docker)
 - [uv](https://docs.astral.sh/uv/) (Python package manager)
 - [pnpm](https://pnpm.io/) (`npm install -g pnpm`)
-- [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) (`brew install cloudflared`)
 - ElevenLabs API key
+- (Optional) [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) - only needed if exposing to ElevenLabs from local machine
 
 ### 1. Backend Setup
 
@@ -102,8 +102,9 @@ uv run python mcp_server.py
 # Runs at http://localhost:8000
 ```
 
-**Terminal 3 - Expose Backend (for ElevenLabs):**
+**Terminal 3 - Expose Backend (optional, for ElevenLabs from local):**
 ```bash
+# Only needed if running locally and ElevenLabs needs external access
 cloudflared tunnel --url http://localhost:8000
 # Copy the generated URL
 ```
@@ -111,7 +112,9 @@ cloudflared tunnel --url http://localhost:8000
 ### 4. Configure ElevenLabs MCP
 
 1. Go to your agent in the [ElevenLabs dashboard](https://elevenlabs.io/conversational-ai)
-2. Add the cloudflared tunnel URL as an MCP server endpoint
+2. Add your MCP server endpoint:
+   - Local with tunnel: Use the cloudflared URL
+   - Remote deployment: Use your server's public URL (e.g., `https://your-domain:8000`)
 3. The agent can now use your backend tools
 
 ## Docker
@@ -123,11 +126,29 @@ Run the application with Docker Compose:
 cp .env.example .env
 # Edit .env with your ELEVENLABS_API_KEY and NEXT_PUBLIC_ELEVENLABS_AGENT_ID
 
-# Build and run both services
-docker-compose up --build
+# Build and run (local deployment - MCP directly exposed)
+docker compose up --build
+
+# Or with FRP tunnel for remote deployment
+docker compose --profile tunnel up --build
 ```
 
-The frontend will be available at `http://localhost:3000` and the backend at `http://localhost:8000`.
+### Local Deployment
+
+For local development/testing, the MCP server is directly exposed:
+- Frontend: `http://localhost:3000`
+- Backend/MCP: `http://localhost:8000`
+
+Configure ElevenLabs to use `http://localhost:8000` as the MCP endpoint (or use a tunnel like ngrok/cloudflared if ElevenLabs needs external access).
+
+### Remote Deployment (with FRP tunnel)
+
+For remote deployment, use the `tunnel` profile to enable FRP:
+```bash
+docker compose --profile tunnel up --build
+```
+
+This exposes the services via the FRP server configured in `frpc/frpc.toml`.
 
 ### Running Services Individually
 
@@ -203,3 +224,7 @@ pnpm build
 ## License
 
 MIT
+
+## Disclaimer
+
+The deployment infrastructure (OVH virtual private server and domain) used for this hackathon project was provided with permission from our employer for demonstration purposes. This has no effect on the code, licensing, or contributions to this project.

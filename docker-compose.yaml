@@ -39,5 +39,21 @@ services:
       - backend
       - postgres
 
+  # FRP tunnel - only needed for remote deployment
+  # Use: docker compose --profile tunnel up
+  frpc:
+    profiles:
+      - tunnel
+    build:
+      context: ./frpc
+      dockerfile: Dockerfile
+    environment:
+      FRPC_TOKEN: $FRPC_TOKEN
+      FRPC_CONFIG: frpc.toml
+      FRPC_NAME: $FRPC_NAME
+    depends_on:
+      - frontend
+      - backend
+
 volumes:
   postgres_data:
