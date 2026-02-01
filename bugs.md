@@ -1,0 +1,1 @@
+note view always open -> irritating -> rename to details

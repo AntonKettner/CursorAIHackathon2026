@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "id": "todo-001",
     "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
     "content": "Design bowtie antenna pattern in L-Edit CAD software",
@@ -160,42 +161,207 @@
   },
   {
     "id": "todo-024",
+=======
+    "id": "22222222-2222-2222-2222-222222222201",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Design bowtie antenna pattern in L-Edit CAD software",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222202",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Clean Si wafer with piranha solution before resist coating",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222203",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Spin coat bilayer PMMA resist on wafer",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222204",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Run e-beam exposure with optimized dose parameters",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222205",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Develop resist in MIBK:IPA and inspect under optical microscope",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222206",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Evaporate Cr/Au stack for master template",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222207",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "content": "Lift-off in acetone and verify structures with SEM",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222208",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "content": "Treat Si master with FDTS anti-stick coating",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222209",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "content": "Mix and degas Sylgard 184 PDMS",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222210",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "content": "Pour PDMS over master and cure at 65C",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222211",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "content": "Peel PDMS stamp and inspect under microscope",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222212",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "content": "Make 3 UV polymer replicas from PDMS stamp",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222213",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "content": "Template strip gold into antenna cavities",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222214",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "content": "SEM inspection of gold-filled antennas",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222215",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "content": "Fabricate PDMS microfluidic channels",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222216",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "content": "Plasma bond channel to antenna chip",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222217",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Order Cy5-labeled miR-21 probes from IDT",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222218",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Reconstitute probes and prepare working dilutions",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222219",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Calibrate fluorescence microscope for Cy5 channel",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222220",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Run first chip test with 1nM probe concentration",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222221",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Measure enhancement factor on antenna vs glass control",
+    "status": "done"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222222",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Optimize blocking buffer to reduce non-specific binding",
+    "status": "open"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222223",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "content": "Test sensitivity with concentration series from 1pM to 1nM",
+    "status": "open"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222224",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
     "content": "Measure photobleaching kinetics with different excitation powers",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-025",
+=======
+    "id": "22222222-2222-2222-2222-222222222225",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
     "content": "Try ROXS oxygen scavenger system to extend Cy5 lifetime",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-026",
+=======
+    "id": "22222222-2222-2222-2222-222222222226",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
     "content": "Test specificity with mismatched miRNA sequences",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-027",
+=======
+    "id": "22222222-2222-2222-2222-222222222227",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
     "content": "Record time-lapse for single molecule binding events",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-028",
+=======
+    "id": "22222222-2222-2222-2222-222222222228",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "content": "Prepare figure for paper showing enhancement spectrum",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-029",
+=======
+    "id": "22222222-2222-2222-2222-222222222229",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "content": "Write methods section for manuscript draft",
     "status": "open"
   },
   {
+<<<<<<< HEAD
     "id": "todo-030",
+=======
+    "id": "22222222-2222-2222-2222-222222222230",
+>>>>>>> 49530ee6b707f425b2b6ee9a8822af4916612fba
     "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
     "content": "Reapply FDTS coating to master - getting sticky after 6 replicas",
     "status": "open"
