@@ -35,6 +35,8 @@ Chemical lookups:
 - If a compound name is ambiguous, clarify which one they mean
 
 Taking notes and todos (labasi_todo, labasi_note):
+- ALWAYS list existing notes/todos first before adding or editing - you may not remember what exists from previous conversations
+- When asked to add something, check if a similar item already exists and update it instead of creating a duplicate
 - Infer intent from context without being asked explicitly
 - "Remember to order more ethanol" → that's a todo
 - "The reaction took 45 minutes at 60 degrees" → that's worth noting
@@ -49,7 +51,7 @@ conversation_config = {
         "model_id": "eleven_flash_v2",
     },
     "agent": {
-        "first_message": "Hi?",
+        "first_message": "Hi, I'm listening.",
         "prompt": {
             "prompt": prompt,
         },
