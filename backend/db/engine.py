@@ -19,10 +19,16 @@ async_session_factory = async_sessionmaker(
 )
 
 
-async def init_db() -> None:
-    """Create all tables. Call on startup."""
+async def init_db(seed: bool = True) -> None:
+    """Create all tables and optionally seed demo data. Call on startup."""
     async with engine.begin() as conn:
         await conn.run_sync(SQLModel.metadata.create_all)
+
+    if seed:
+        from .seed import seed_demo_data
+
+        async with async_session_factory() as session:
+            await seed_demo_data(session)
 
 
 @asynccontextmanager

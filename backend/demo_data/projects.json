@@ -1,0 +1,17 @@
+[
+  {
+    "id": "5d013b26-4e44-45cc-9e3d-beb85c5f9a85",
+    "name": "PCR Amplification - BRCA1",
+    "description": "PCR amplification of BRCA1 gene fragments for sequencing analysis. Part of ongoing cancer research project."
+  },
+  {
+    "id": "90e3feab-6f98-4f67-90cd-0d1b9e00f592",
+    "name": "Nanoparticle Synthesis",
+    "description": "Gold nanoparticle synthesis via citrate reduction method. Investigating particle size control through temperature variation."
+  },
+  {
+    "id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "name": "Aspirin Synthesis",
+    "description": "Synthesis of acetylsalicylic acid from salicylic acid and acetic anhydride. Standard undergraduate organic chemistry experiment."
+  }
+]

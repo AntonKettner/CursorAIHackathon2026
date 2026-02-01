@@ -8,6 +8,7 @@ from .models import (
     Todo,
     TodoStatus,
 )
+from .seed import seed_demo_data
 
 __all__ = [
     "ConversationMessage",
@@ -19,4 +20,5 @@ __all__ = [
     "TodoStatus",
     "get_session",
     "init_db",
+    "seed_demo_data",
 ]

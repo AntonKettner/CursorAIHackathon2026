@@ -1,0 +1,14 @@
+[
+  {
+    "id": "375d297d-b5c5-4279-8279-861a3767d879",
+    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "title": "Reaction Setup",
+    "content": "Use 2.0g salicylic acid, 3mL acetic anhydride, and 5 drops of concentrated H2SO4 as catalyst. Heat in water bath at 85°C for 15 minutes."
+  },
+  {
+    "id": "e480c285-7f87-454f-ab89-10ef8c2124a1",
+    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "title": "Safety Notes",
+    "content": "Acetic anhydride is corrosive and reacts violently with water. Use fume hood. Wear gloves and goggles. Have ice bath ready for quenching."
+  }
+]

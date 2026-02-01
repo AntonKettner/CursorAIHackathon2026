@@ -1,0 +1,20 @@
+[
+  {
+    "id": "b378b0c1-7dbc-4d3d-ac25-55631668debb",
+    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "content": "Order fresh acetic anhydride (current stock expires next week)",
+    "status": "open"
+  },
+  {
+    "id": "dc4222f8-da7d-4007-8128-7bffcec3522d",
+    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "content": "Calibrate melting point apparatus",
+    "status": "done"
+  },
+  {
+    "id": "1199ef23-6146-4832-8c81-51de7de98908",
+    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
+    "content": "Run purity analysis via HPLC",
+    "status": "open"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "8c289818-5404-406c-8793-03829672053a",
+    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
+    "content": "What temperature should I use for the aspirin synthesis?",
+    "source": "user",
+    "timestamp": "2026-01-30T09:15:30Z"
+  },
+  {
+    "id": "f2970c52-b1e1-46bd-8851-38fdd8802da4",
+    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
+    "content": "For aspirin synthesis, heat your reaction mixture in a water bath at 85°C for 15 minutes. This temperature is optimal for the esterification reaction while avoiding decomposition of the product.",
+    "source": "assistant",
+    "timestamp": "2026-01-30T09:15:45Z"
+  },
+  {
+    "id": "1cb3ce8d-1321-4b31-985b-7cbcb89147f1",
+    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
+    "content": "How do I know when the reaction is complete?",
+    "source": "user",
+    "timestamp": "2026-01-30T09:18:00Z"
+  },
+  {
+    "id": "c4147492-0df6-4123-8590-2e3a2b848e10",
+    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
+    "content": "After 15 minutes at 85°C, the reaction should be complete. You'll notice the solution becomes clear. To work up: carefully add cold water to decompose excess acetic anhydride, then cool in an ice bath until crystals form. The product should be white needle-like crystals.",
+    "source": "assistant",
+    "timestamp": "2026-01-30T09:18:20Z"
+  }
+]
