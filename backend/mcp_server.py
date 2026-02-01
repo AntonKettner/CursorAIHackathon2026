@@ -3,9 +3,30 @@ from urllib.parse import quote
 
 import httpx
 from fastmcp import FastMCP
+from fastmcp.server.dependencies import get_http_headers
 from pydantic import BaseModel, Field
 
-mcp = FastMCP("Demo Server")
+mcp = FastMCP("Labasi Server")
+
+
+# =============================================================================
+# Project Context via HTTP Headers
+# =============================================================================
+# The project_id is passed via custom HTTP header from ElevenLabs.
+# In the ElevenLabs dashboard, configure the MCP server with:
+#   Header: X-Project-ID
+#   Value: {{project_id}}
+#
+# Tools can then call get_project_id() to retrieve it.
+# =============================================================================
+
+PROJECT_ID_HEADER = "x-project-id"
+
+
+def get_project_id() -> str | None:
+    """Get the project ID from the HTTP request headers."""
+    headers = get_http_headers()
+    return headers.get(PROJECT_ID_HEADER)
 
 PUBCHEM_BASE_URL = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 

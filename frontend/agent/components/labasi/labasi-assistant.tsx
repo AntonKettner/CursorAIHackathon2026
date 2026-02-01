@@ -99,6 +99,8 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
       <div className="border-t border-border bg-background">
         <ConversationBar
           agentId={agentId}
+          projectId={projectId}
+          projectName={project?.name}
           onConnect={handleConnect}
           onDisconnect={handleDisconnect}
           onMessage={handleMessage}

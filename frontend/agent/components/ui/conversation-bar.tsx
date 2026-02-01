@@ -26,6 +26,16 @@ export interface ConversationBarProps {
   agentId: string
 
   /**
+   * Project ID to pass as dynamic variable
+   */
+  projectId?: string
+
+  /**
+   * Project name to pass as dynamic variable
+   */
+  projectName?: string
+
+  /**
    * Custom className for the container
    */
   className?: string
@@ -68,6 +78,8 @@ export const ConversationBar = React.forwardRef<
   (
     {
       agentId,
+      projectId,
+      projectName,
       className,
       waveformClassName,
       onConnect,
@@ -127,17 +139,27 @@ export const ConversationBar = React.forwardRef<
 
         await getMicStream()
 
+        // Build dynamic variables for project context
+        const dynamicVariables: Record<string, string> = {}
+        if (projectId) {
+          dynamicVariables.project_id = projectId
+        }
+        if (projectName) {
+          dynamicVariables.project_name = projectName
+        }
+
         await conversation.startSession({
           agentId,
           connectionType: "webrtc",
           onStatusChange: (status) => setAgentState(status.status),
+          ...(Object.keys(dynamicVariables).length > 0 && { dynamicVariables }),
         })
       } catch (error) {
         console.error("Error starting conversation:", error)
         setAgentState("disconnected")
         onError?.(error as Error)
       }
-    }, [conversation, getMicStream, agentId, onError])
+    }, [conversation, getMicStream, agentId, projectId, projectName, onError])
 
     const handleEndSession = React.useCallback(() => {
       conversation.endSession()
