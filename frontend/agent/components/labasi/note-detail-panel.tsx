@@ -35,7 +35,7 @@ export function NoteDetailPanel({ note, onClose, onDelete }: NoteDetailPanelProp
         <CardHeader className="px-4 py-0">
           <CardTitle className="text-sm flex items-center gap-2">
             <FileText className="w-4 h-4" />
-            Note
+            Details
           </CardTitle>
         </CardHeader>
         <CardContent className="px-4 py-0 flex-1 flex items-center justify-center">
