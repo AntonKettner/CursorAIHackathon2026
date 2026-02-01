@@ -1,30 +1,338 @@
 [
   {
-    "id": "8c289818-5404-406c-8793-03829672053a",
-    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
-    "content": "What temperature should I use for the aspirin synthesis?",
+    "id": "44444444-4444-4444-4444-444444444401",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Hey Labasi, what dose did I use for the bowtie antennas last time?",
     "source": "user",
-    "timestamp": "2026-01-30T09:15:30Z"
+    "timestamp": "2026-01-15T09:05:00Z"
   },
   {
-    "id": "f2970c52-b1e1-46bd-8851-38fdd8802da4",
-    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
-    "content": "For aspirin synthesis, heat your reaction mixture in a water bath at 85°C for 15 minutes. This temperature is optimal for the esterification reaction while avoiding decomposition of the product.",
+    "id": "44444444-4444-4444-4444-444444444402",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "In your previous E-beam run on January 10th, you used 350 microcoulombs per square centimeter for the bowtie antenna structures. You noted that 300 was slightly underdosed, causing incomplete development.",
     "source": "assistant",
-    "timestamp": "2026-01-30T09:15:45Z"
+    "timestamp": "2026-01-15T09:05:15Z"
   },
   {
-    "id": "1cb3ce8d-1321-4b31-985b-7cbcb89147f1",
-    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
-    "content": "How do I know when the reaction is complete?",
+    "id": "44444444-4444-4444-4444-444444444403",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Perfect. And the PMMA bake time, was it five minutes or ten?",
     "source": "user",
-    "timestamp": "2026-01-30T09:18:00Z"
+    "timestamp": "2026-01-15T09:08:00Z"
   },
   {
-    "id": "c4147492-0df6-4123-8590-2e3a2b848e10",
-    "session_id": "d08bddfd-a26a-4c36-90bd-6c6acc8233ac",
-    "content": "After 15 minutes at 85°C, the reaction should be complete. You'll notice the solution becomes clear. To work up: carefully add cold water to decompose excess acetic anhydride, then cool in an ice bath until crystals form. The product should be white needle-like crystals.",
+    "id": "44444444-4444-4444-4444-444444444404",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Your notes show 5 minutes at 180 degrees Celsius for each PMMA layer. The 495K layer goes first at 4000 RPM, then the 950K layer also at 4000 RPM. Each layer needs the 5 minute bake before the next step.",
     "source": "assistant",
-    "timestamp": "2026-01-30T09:18:20Z"
+    "timestamp": "2026-01-15T09:08:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444405",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Add a note: PMMA adhesion was better today after oxygen plasma cleaning the wafer for 30 seconds first",
+    "source": "user",
+    "timestamp": "2026-01-15T09:25:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444406",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "I've added a note to the E-Beam Master Template project: PMMA adhesion improvement observed after 30 second oxygen plasma clean before resist coating. Would you like me to update the standard process notes?",
+    "source": "assistant",
+    "timestamp": "2026-01-15T09:25:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444407",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Yes please. Also remind me to check the development time tomorrow",
+    "source": "user",
+    "timestamp": "2026-01-15T09:26:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444408",
+    "session_id": "33333333-3333-3333-3333-333333333301",
+    "content": "Done. I've updated the process notes and created a reminder for tomorrow to verify development time. Current protocol shows 60 seconds in 1:3 MIBK to IPA.",
+    "source": "assistant",
+    "timestamp": "2026-01-15T09:26:08Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444409",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "Labasi, I'm loading the evaporator now. What's my gold thickness target?",
+    "source": "user",
+    "timestamp": "2026-01-17T09:35:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444410",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "For the nanoantenna master template, you planned 3 nanometers of chromium as an adhesion layer followed by 40 nanometers of gold. Deposition rates are 0.5 angstroms per second for chromium and 1.0 angstroms per second for gold.",
+    "source": "assistant",
+    "timestamp": "2026-01-17T09:35:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444411",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "Chamber pressure is at 6 times 10 to the minus 6 Torr. Is that okay?",
+    "source": "user",
+    "timestamp": "2026-01-17T09:42:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444412",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "That's slightly above your target of 5 times 10 to the minus 6 Torr, but still acceptable for gold evaporation. The film quality should be fine. If you want optimal results, you could wait another 10-15 minutes for the pressure to drop further.",
+    "source": "assistant",
+    "timestamp": "2026-01-17T09:42:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444413",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "I'll wait. Mark the evaporation as in progress",
+    "source": "user",
+    "timestamp": "2026-01-17T09:43:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444414",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "Updated. The evaporation step is now marked in progress. I'll remind you when 15 minutes have passed to check the pressure again.",
+    "source": "assistant",
+    "timestamp": "2026-01-17T09:43:08Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444415",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "Evaporation done. Film looks good. Mark it complete and add a note that final pressure was 4.5e-6",
+    "source": "user",
+    "timestamp": "2026-01-17T10:10:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444416",
+    "session_id": "33333333-3333-3333-3333-333333333302",
+    "content": "Excellent! I've marked the evaporation task as complete and added a note recording the final chamber pressure of 4.5 times 10 to the minus 6 Torr. Your next step is the lift-off process in warm acetone. Would you like me to remind you of the sonication parameters?",
+    "source": "assistant",
+    "timestamp": "2026-01-17T10:10:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444417",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "Starting the PDMS mixing. What was the ratio again?",
+    "source": "user",
+    "timestamp": "2026-01-20T10:05:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444418",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "Sylgard 184 uses a 10 to 1 ratio by weight: 10 parts base to 1 part curing agent. For a typical stamp, that's about 30 grams base and 3 grams curing agent. Mix thoroughly for at least 3 minutes until uniformly cloudy.",
+    "source": "assistant",
+    "timestamp": "2026-01-20T10:05:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444419",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "Got it. How long should I degas?",
+    "source": "user",
+    "timestamp": "2026-01-20T10:12:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444420",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "Degas in the vacuum desiccator for 30 minutes minimum, until no more bubbles are rising. The mixture will foam up initially then settle. If large bubbles remain, you can pop them by briefly releasing vacuum.",
+    "source": "assistant",
+    "timestamp": "2026-01-20T10:12:08Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444421",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "PDMS is poured. Curing at 65 degrees. Create a reminder for 4 hours from now",
+    "source": "user",
+    "timestamp": "2026-01-20T11:15:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444422",
+    "session_id": "33333333-3333-3333-3333-333333333303",
+    "content": "Reminder set for 3:15 PM today to check the PDMS cure. At 65 degrees Celsius, 4 hours should give complete cross-linking. The stamp should be firm but still flexible when ready. Don't forget to peel from the edge to avoid damaging the nanostructures.",
+    "source": "assistant",
+    "timestamp": "2026-01-20T11:15:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444423",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "Labasi, I'm having trouble with the template stripping. The gold isn't transferring completely",
+    "source": "user",
+    "timestamp": "2026-01-24T13:35:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444424",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "Template stripping issues are usually related to one of three factors: gold freshness, contact pressure, or surface cleanliness. When did you evaporate the gold donor substrate?",
+    "source": "assistant",
+    "timestamp": "2026-01-24T13:35:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444425",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "Yesterday morning",
+    "source": "user",
+    "timestamp": "2026-01-24T13:36:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444426",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "That should still be fresh enough. The gold surface oxidizes slowly but 24 hours is typically fine. Check that you're applying even pressure across the entire area, and that the UV polymer is tacky but not fully cured when you make contact. Try a fresh gold substrate and press for about 30 seconds before UV exposure.",
+    "source": "assistant",
+    "timestamp": "2026-01-24T13:36:15Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444427",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "I think the polymer was too cured. Let me try with less pre-exposure",
+    "source": "user",
+    "timestamp": "2026-01-24T13:40:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444428",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "Good thinking. The polymer needs to be in a tacky, partially cured state to bond with the gold. Try skipping the pre-exposure entirely and press immediately after spinning. The gold will stick better to the uncured surface.",
+    "source": "assistant",
+    "timestamp": "2026-01-24T13:40:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444429",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "That worked much better! Full transfer now. Add a note about skipping the pre-exposure step",
+    "source": "user",
+    "timestamp": "2026-01-24T14:05:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444430",
+    "session_id": "33333333-3333-3333-3333-333333333304",
+    "content": "Great news! I've added a note to the Nanofluidic Chip Assembly project: Template stripping works best without pre-exposure. Contact gold immediately after spinning UV polymer while surface is still tacky.",
+    "source": "assistant",
+    "timestamp": "2026-01-24T14:05:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444431",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "I'm in the biolab now. What concentration should I use for the Cy5 probes?",
+    "source": "user",
+    "timestamp": "2026-01-28T10:05:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444432",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "Your stock Cy5-labeled miR-21 probes are at 100 micromolar in TE buffer. For the initial chip test, I'd recommend starting with 1 nanomolar working concentration in PBS with 0.1% Tween-20. This gives a good signal without saturating the antennas.",
+    "source": "assistant",
+    "timestamp": "2026-01-28T10:05:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444433",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "What's the dilution factor to get 1 nanomolar from 100 micromolar?",
+    "source": "user",
+    "timestamp": "2026-01-28T10:08:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444434",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "That's a 100,000-fold dilution. Easiest way: first dilute 1 microliter stock into 999 microliters PBS to get 100 nanomolar. Then take 10 microliters of that and add to 990 microliters PBS with Tween to get 1 nanomolar working solution.",
+    "source": "assistant",
+    "timestamp": "2026-01-28T10:08:15Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444435",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "Perfect. What filter cube do I need on the microscope?",
+    "source": "user",
+    "timestamp": "2026-01-28T10:15:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444436",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "For Cy5, use the far-red filter cube. It should have excitation around 620 nanometers with a 60 nanometer bandwidth, and emission at 700 nanometers with a 75 nanometer bandwidth. The dichroic cutoff should be around 660 nanometers. On the Nikon Ti2, this is usually labeled as the Cy5 or far-red position.",
+    "source": "assistant",
+    "timestamp": "2026-01-28T10:15:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444437",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "What exposure time should I start with?",
+    "source": "user",
+    "timestamp": "2026-01-28T10:18:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444438",
+    "session_id": "33333333-3333-3333-3333-333333333305",
+    "content": "Start with 100 milliseconds exposure at gain 1.0 with 4x4 binning. This is a good balance between signal strength and avoiding photobleaching. If the signal is weak, increase exposure before increasing lamp intensity to preserve your fluorophores.",
+    "source": "assistant",
+    "timestamp": "2026-01-28T10:18:10Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444439",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Labasi, I can see signal on the antenna spots! It looks much brighter than the glass region",
+    "source": "user",
+    "timestamp": "2026-01-29T14:10:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444440",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Excellent! That's the plasmonic enhancement working. Can you estimate the intensity difference between the antenna region and the glass control? This will give us the enhancement factor.",
+    "source": "assistant",
+    "timestamp": "2026-01-29T14:10:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444441",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "The antenna spots are showing around 4500 counts, and the glass background is about 300. So roughly 15 times brighter",
+    "source": "user",
+    "timestamp": "2026-01-29T14:15:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444442",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "A 15-fold enhancement is excellent for bowtie antennas! This is consistent with the theoretical predictions for your 150 nanometer gap structures. I'll record this as the measured enhancement factor. Do you want me to create a note with these values?",
+    "source": "assistant",
+    "timestamp": "2026-01-29T14:15:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444443",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Yes please. Also note that I'm seeing some photobleaching after about a minute of continuous illumination",
+    "source": "user",
+    "timestamp": "2026-01-29T14:20:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444444",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Noted. Photobleaching is often accelerated near plasmonic structures due to the enhanced local field intensity. I've added both observations. For future experiments, consider using pulsed illumination or an oxygen scavenger system like ROXS to extend fluorophore lifetime. Should I add testing ROXS to your task list?",
+    "source": "assistant",
+    "timestamp": "2026-01-29T14:20:15Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444445",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Yes add that. Also add testing lower target concentrations to find the detection limit",
+    "source": "user",
+    "timestamp": "2026-01-29T14:25:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444446",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Done. I've added two new tasks: testing the ROXS oxygen scavenger system, and running a concentration series from 1 picomolar to 1 nanomolar to determine your detection limit. Based on your current signal-to-noise ratio, you should be able to detect down to the femtomolar range with optimization.",
+    "source": "assistant",
+    "timestamp": "2026-01-29T14:25:12Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444447",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Amazing. What's the typical detection limit for this type of sensor in the literature?",
+    "source": "user",
+    "timestamp": "2026-01-29T14:30:00Z"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444448",
+    "session_id": "33333333-3333-3333-3333-333333333306",
+    "content": "Published plasmonic nanoantenna biosensors for miRNA typically achieve detection limits between 1 femtomolar and 100 femtomolar, depending on the antenna design and assay format. Your 15-fold enhancement is competitive with the better results in literature. With optimization of blocking and using oxygen scavengers, you could potentially reach the sub-femtomolar range.",
+    "source": "assistant",
+    "timestamp": "2026-01-29T14:30:15Z"
   }
 ]
