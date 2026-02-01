@@ -44,11 +44,30 @@ export function useConversationDB() {
     })
   }, [])
 
-  const endSession = useCallback((): void => {
+  const endSession = useCallback((projectId?: string, onAnalysisComplete?: () => void): void => {
     const sessionId = currentSessionIdRef.current
     if (!sessionId) return
 
     endSessionApi(sessionId)
+      .then(() => {
+        // Fire-and-forget analysis after session ends
+        if (projectId) {
+          fetch("/api/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sessionId, projectId }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success && onAnalysisComplete) {
+                onAnalysisComplete()
+              }
+            })
+            .catch((error) => {
+              console.error("Failed to trigger analysis:", error)
+            })
+        }
+      })
       .catch((error) => {
         console.error("Failed to end session:", error)
       })

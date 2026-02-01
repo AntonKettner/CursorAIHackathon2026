@@ -1,17 +1,27 @@
 [
   {
-    "id": "5d013b26-4e44-45cc-9e3d-beb85c5f9a85",
-    "name": "PCR Amplification - BRCA1",
-    "description": "PCR amplification of BRCA1 gene fragments for sequencing analysis. Part of ongoing cancer research project."
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Gold Nanoantenna Biosensor",
+    "description": "Fabrication of gold nanoantennas on nanofluidic chips for single-molecule RNA detection. Using plasmonic enhancement for improved fluorescence sensitivity with Cy5-labeled miRNA targets."
   },
   {
-    "id": "90e3feab-6f98-4f67-90cd-0d1b9e00f592",
-    "name": "Nanoparticle Synthesis",
-    "description": "Gold nanoparticle synthesis via citrate reduction method. Investigating particle size control through temperature variation."
+    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "name": "E-Beam Master Template",
+    "description": "Creating the master template on silicon wafer using electron beam lithography. Defines the nanoantenna array geometry with 150nm bowtie structures at 500nm pitch."
   },
   {
-    "id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
-    "name": "Aspirin Synthesis",
-    "description": "Synthesis of acetylsalicylic acid from salicylic acid and acetic anhydride. Standard undergraduate organic chemistry experiment."
+    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "name": "PDMS Stamp Fabrication",
+    "description": "Making negative PDMS stamps from the silicon master for soft lithography replication. Sylgard 184 with 10:1 ratio, cured at 65C for 4 hours."
+  },
+  {
+    "id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "name": "Nanofluidic Chip Assembly",
+    "description": "UV-curable polymer replica fabrication and gold deposition into antenna structures. Final bonding and channel integration for fluid delivery."
+  },
+  {
+    "id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "name": "miRNA Detection Assay",
+    "description": "Biolab validation of nanoantenna chips for miR-21 detection using Cy5-labeled capture probes. Testing sensitivity, signal enhancement, and photobleaching characteristics."
   }
 ]

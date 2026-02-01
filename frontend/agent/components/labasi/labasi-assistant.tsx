@@ -39,8 +39,11 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
   const handleDisconnect = useCallback(() => {
     setIsConnected(false)
     setStatus("disconnected")
-    endSession()
-  }, [endSession])
+    // Pass callback to refresh sidebar when analysis completes
+    endSession(projectId, () => {
+      setSidebarRefreshKey((prev) => prev + 1)
+    })
+  }, [endSession, projectId])
 
   const handleMessage = useCallback(
     (message: { source: "user" | "ai"; message: string }) => {

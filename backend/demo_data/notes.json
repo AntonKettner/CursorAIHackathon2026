@@ -1,14 +1,93 @@
 [
   {
-    "id": "375d297d-b5c5-4279-8279-861a3767d879",
-    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
-    "title": "Reaction Setup",
-    "content": "Use 2.0g salicylic acid, 3mL acetic anhydride, and 5 drops of concentrated H2SO4 as catalyst. Heat in water bath at 85°C for 15 minutes."
+    "id": "note-001-ebl",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "E-Beam Parameters - Optimized",
+    "content": "Final EBL parameters for bowtie antennas: Acceleration voltage 30kV, beam current 50pA, dose 350uC/cm2. Area dose for large features, line dose for fine gaps. Write field 100um x 100um with stitching correction enabled.",
+    "timestamp": "2026-01-15T10:30:00Z"
   },
   {
-    "id": "e480c285-7f87-454f-ab89-10ef8c2124a1",
-    "project_id": "3f3cb223-6561-48b9-b4e9-ec0394e7404f",
-    "title": "Safety Notes",
-    "content": "Acetic anhydride is corrosive and reacts violently with water. Use fume hood. Wear gloves and goggles. Have ice bath ready for quenching."
+    "id": "note-002-pmma",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "PMMA Resist Process",
+    "content": "Bilayer PMMA process: First layer 495K at 4000rpm (180nm), bake 180C 5min. Second layer 950K at 4000rpm (100nm), bake 180C 5min. Development in 1:3 MIBK:IPA for 60s, IPA rinse 30s. Good undercut for lift-off.",
+    "timestamp": "2026-01-16T14:15:00Z"
+  },
+  {
+    "id": "note-003-evap",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "Gold Evaporation Recipe",
+    "content": "Thermal evaporation: 3nm Cr adhesion layer at 0.5A/s, then 40nm Au at 1.0A/s. Chamber pressure <5e-6 Torr. Sample rotation ON for uniform coverage. Lift-off in warm acetone with mild sonication.",
+    "timestamp": "2026-01-17T09:45:00Z"
+  },
+  {
+    "id": "note-004-pdms",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "title": "PDMS Stamp Protocol",
+    "content": "Sylgard 184 mixing: 10:1 base to curing agent ratio. Degas in vacuum for 30min until no bubbles. Pour over silanized master (FDTS treatment). Cure at 65C for 4h or 80C for 2h. Peel carefully from edge.",
+    "timestamp": "2026-01-20T11:00:00Z"
+  },
+  {
+    "id": "note-005-silanization",
+    "project_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "title": "Anti-Stick Treatment",
+    "content": "Silanization for easy demolding: O2 plasma clean master 2min at 100W. Vapor deposition of FDTS in vacuum desiccator for 2h. Check contact angle >110 degrees before molding. Reapply after every 5-6 replications.",
+    "timestamp": "2026-01-21T15:30:00Z"
+  },
+  {
+    "id": "note-006-replica",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "title": "UV Replica Process",
+    "content": "OrmoStamp UV-curable polymer from Microresist. Spin at 3000rpm on glass substrate. Press PDMS stamp with gentle pressure. UV expose 365nm, 500mJ/cm2. Peel PDMS carefully. Post-bake 130C 30min for full cross-linking.",
+    "timestamp": "2026-01-23T10:20:00Z"
+  },
+  {
+    "id": "note-007-gold-fill",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "title": "Antenna Gold Filling",
+    "content": "Template stripping method for gold filling: Evaporate 40nm Au onto flat Si. Press UV replica pattern into fresh gold. UV cure polymer. Peel off - gold transfers to antenna cavities. Check with SEM for complete filling.",
+    "timestamp": "2026-01-24T14:00:00Z"
+  },
+  {
+    "id": "note-008-channel",
+    "project_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+    "title": "Channel Bonding",
+    "content": "O2 plasma treatment 30s both surfaces. Align antenna array with PDMS channel (100um wide, 10um deep). Press together immediately after plasma. Bake 80C 1h for strong bonding. Check for leaks with DI water before RNA experiments.",
+    "timestamp": "2026-01-25T09:15:00Z"
+  },
+  {
+    "id": "note-009-cy5-prep",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "title": "Cy5 Probe Preparation",
+    "content": "miR-21 capture probe: 5'-Cy5-TCAACATCAGTCTGATAAGCTA-3' from IDT. Reconstitute in TE buffer to 100uM stock. Working dilution 1nM in PBS with 0.1% Tween-20. Store aliquots at -20C protected from light.",
+    "timestamp": "2026-01-27T11:30:00Z"
+  },
+  {
+    "id": "note-010-microscope",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "title": "Fluorescence Microscope Settings",
+    "content": "Nikon Ti2 with 60x oil objective NA1.4. Cy5 filter cube: Ex 620/60, Em 700/75, dichroic 660LP. Exposure 100ms, gain 1.0, 4x4 binning for weak signals. EM-CCD for single molecule. Check laser alignment weekly.",
+    "timestamp": "2026-01-28T08:45:00Z"
+  },
+  {
+    "id": "note-011-enhancement",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "title": "Plasmonic Enhancement Results",
+    "content": "Measured 15x fluorescence enhancement on antenna spots vs glass control. Signal visible down to 10fM target concentration. Background from non-specific binding manageable with proper blocking (1% BSA). SNR approximately 8:1 at 100fM.",
+    "timestamp": "2026-01-29T16:00:00Z"
+  },
+  {
+    "id": "note-012-photobleach",
+    "project_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+    "title": "Photobleaching Observations",
+    "content": "Cy5 photobleaches faster near antennas - half-life ~45s vs ~120s on glass. Use minimal excitation power. Consider ROXS oxygen scavenger system for extended imaging. Alternative: pulse illumination with 2s intervals.",
+    "timestamp": "2026-01-30T10:30:00Z"
+  },
+  {
+    "id": "note-013-safety",
+    "project_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "Cleanroom Safety Reminder",
+    "content": "Always check chemical compatibility before mixing solvents. MIBK and acetone in separate waste containers. Never use piranha without buddy present. Check expiration dates on resists monthly. Report any spills immediately.",
+    "timestamp": "2026-01-18T13:00:00Z"
   }
 ]
