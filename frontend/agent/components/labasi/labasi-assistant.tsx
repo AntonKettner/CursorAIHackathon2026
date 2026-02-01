@@ -2,12 +2,12 @@
 
 import { useState, useCallback, useEffect } from "react"
 import { LabasiHeader } from "./labasi-header"
-import { LabasiOrb } from "./labasi-orb"
+import { ProjectSidebar } from "./project-sidebar"
 import { ConversationPanel } from "./conversation-panel"
 import { ConversationBar } from "@/components/ui/conversation-bar"
 import { useConversationDB } from "@/lib/use-conversation-db"
 import { getProject } from "@/lib/project-api"
-import type { ConversationMessage, AgentState } from "@/types/conversation"
+import type { ConversationMessage } from "@/types/conversation"
 import type { Project } from "@/types/project"
 
 interface LabasiAssistantProps {
@@ -19,8 +19,8 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
   const [messages, setMessages] = useState<ConversationMessage[]>([])
   const [isConnected, setIsConnected] = useState(false)
   const [status, setStatus] = useState("disconnected")
-  const [agentState, setAgentState] = useState<AgentState>(null)
   const [project, setProject] = useState<Project | null>(null)
+  const [sidebarRefreshKey, setSidebarRefreshKey] = useState(0)
 
   const { startSession, saveMessage, endSession } = useConversationDB()
 
@@ -33,14 +33,12 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
   const handleConnect = useCallback(() => {
     setIsConnected(true)
     setStatus("connected")
-    setAgentState("listening")
     startSession(agentId, projectId)
   }, [agentId, projectId, startSession])
 
   const handleDisconnect = useCallback(() => {
     setIsConnected(false)
     setStatus("disconnected")
-    setAgentState(null)
     endSession()
   }, [endSession])
 
@@ -55,11 +53,9 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
       setMessages((prev) => [...prev, newMessage])
       saveMessage(newMessage)
 
-      // Update agent state based on who is speaking
+      // Refresh sidebar after agent messages (agent may have modified notes/todos)
       if (message.source === "ai") {
-        setAgentState("talking")
-        // Reset to listening after a short delay
-        setTimeout(() => setAgentState("listening"), 500)
+        setSidebarRefreshKey((prev) => prev + 1)
       }
     },
     [saveMessage]
@@ -80,16 +76,13 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
       {/* Main content area */}
       <main className="flex-1 flex flex-col lg:flex-row gap-6 p-6 overflow-hidden">
         {/* Conversation panel */}
-        <div className="flex-1 lg:max-w-xl overflow-hidden flex flex-col order-2 lg:order-1">
+        <div className="lg:w-96 overflow-hidden flex flex-col order-2 lg:order-1">
           <ConversationPanel messages={messages} />
         </div>
 
-        {/* Orb section */}
-        <div className="flex items-center justify-center lg:w-64 order-1 lg:order-2">
-          <LabasiOrb
-            agentState={agentState}
-            className="w-40 h-40 lg:w-56 lg:h-56"
-          />
+        {/* Sidebar with logbook and note detail */}
+        <div className="flex-1 order-1 lg:order-2 overflow-hidden">
+          <ProjectSidebar projectId={projectId} refreshKey={sidebarRefreshKey} />
         </div>
       </main>
 
