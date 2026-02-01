@@ -73,8 +73,6 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
   return (
     <div className="flex flex-col h-screen bg-background">
       <LabasiHeader
-        isConnected={isConnected}
-        status={status}
         projectId={projectId}
         projectName={project?.name}
       />

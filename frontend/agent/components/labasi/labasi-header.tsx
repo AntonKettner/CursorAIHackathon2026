@@ -4,17 +4,14 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { LabasiLogo } from "./labasi-logo"
 
 interface LabasiHeaderProps {
-  isConnected?: boolean
-  status?: string
   projectId?: string
   projectName?: string
 }
 
 export function LabasiHeader({
-  isConnected,
-  status,
   projectId,
   projectName,
 }: LabasiHeaderProps) {
@@ -34,17 +31,15 @@ export function LabasiHeader({
             <ChevronLeft className="w-5 h-5" />
           </Link>
         ) : null}
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-700 to-green-600 flex items-center justify-center">
-          <span className="text-white font-bold text-lg">L</span>
-        </div>
-        <div>
-          <h1 className="text-xl font-semibold text-foreground">
-            {projectName || "Labasi"}
-          </h1>
-          <p className="text-xs text-muted-foreground">
-            {projectName ? "Voice Agent" : "Laboratory Assistant"}
-          </p>
-        </div>
+        <LabasiLogo size="md" />
+        {projectName && (
+          <div className="ml-2 pl-4 border-l border-border">
+            <h1 className="text-lg font-semibold text-foreground">
+              {projectName}
+            </h1>
+            <p className="text-xs text-muted-foreground">Voice Agent</p>
+          </div>
+        )}
       </div>
 
       {projectId && (
@@ -74,18 +69,6 @@ export function LabasiHeader({
         </nav>
       )}
 
-      {status !== undefined && (
-        <div className="flex items-center gap-2">
-          <div
-            className={cn(
-              "w-2 h-2 rounded-full transition-colors",
-              isConnected ? "bg-green-600" : "bg-muted-foreground"
-            )}
-          />
-          <span className="text-sm text-muted-foreground capitalize">{status}</span>
-        </div>
-      )}
-      {status === undefined && <div className="w-24" />}
     </header>
   )
 }
