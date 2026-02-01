@@ -74,14 +74,14 @@ export function LabasiAssistant({ agentId, projectId }: LabasiAssistantProps) {
       />
 
       {/* Main content area */}
-      <main className="flex-1 flex flex-col lg:flex-row gap-6 p-6 overflow-hidden">
+      <main className="flex-1 flex flex-col lg:flex-row gap-6 p-6 overflow-auto lg:overflow-hidden">
         {/* Conversation panel */}
-        <div className="lg:w-96 overflow-hidden flex flex-col order-2 lg:order-1">
+        <div className="min-h-[300px] lg:min-h-0 lg:w-96 lg:overflow-hidden flex flex-col order-2 lg:order-1">
           <ConversationPanel messages={messages} />
         </div>
 
         {/* Sidebar with logbook and note detail */}
-        <div className="flex-1 order-1 lg:order-2 overflow-hidden">
+        <div className="min-h-[400px] lg:min-h-0 flex-1 order-1 lg:order-2 lg:overflow-hidden">
           <ProjectSidebar projectId={projectId} refreshKey={sidebarRefreshKey} />
         </div>
       </main>

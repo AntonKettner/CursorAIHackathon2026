@@ -14,7 +14,7 @@ interface ConversationPanelProps {
 
 export function ConversationPanel({ messages }: ConversationPanelProps) {
   return (
-    <Conversation className="flex-1 bg-card rounded-lg border border-border">
+    <Conversation className="flex-1 bg-card rounded-lg border border-border overflow-visible lg:overflow-y-auto">
       <ConversationContent className="p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">

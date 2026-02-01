@@ -158,7 +158,7 @@ export function LogbookPanel({
   }
 
   return (
-    <Card className="py-4 gap-3 flex-1 flex flex-col overflow-hidden">
+    <Card className="py-4 gap-3 flex-1 flex flex-col overflow-hidden max-h-[50vh] lg:max-h-none">
       <CardHeader className="px-4 py-0">
         <CardTitle className="text-sm flex items-center gap-2">
           <BookOpen className="w-4 h-4" />
