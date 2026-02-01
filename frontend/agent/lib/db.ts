@@ -32,9 +32,30 @@ async function initializeDatabase() {
       timestamp TIMESTAMP DEFAULT NOW()
     );
 
+    CREATE TABLE IF NOT EXISTS notes (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      title VARCHAR(255) NOT NULL,
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      modified JSONB DEFAULT '[]'::jsonb
+    );
+
+    CREATE TABLE IF NOT EXISTS todos (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      modified JSONB DEFAULT '[]'::jsonb,
+      status VARCHAR(20) NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'done'))
+    );
+
     CREATE INDEX IF NOT EXISTS idx_conversation_sessions_project_id ON conversation_sessions(project_id);
     CREATE INDEX IF NOT EXISTS idx_conversation_sessions_agent_id ON conversation_sessions(agent_id);
     CREATE INDEX IF NOT EXISTS idx_conversation_messages_session_id ON conversation_messages(session_id);
+    CREATE INDEX IF NOT EXISTS idx_notes_project_id ON notes(project_id);
+    CREATE INDEX IF NOT EXISTS idx_todos_project_id ON todos(project_id);
+    CREATE INDEX IF NOT EXISTS idx_todos_status ON todos(status);
   `)
 
   console.log("Database tables initialized")

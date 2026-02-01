@@ -2,6 +2,8 @@ from datetime import datetime
 from enum import Enum
 from uuid import UUID, uuid4
 
+from sqlalchemy import Column
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlmodel import Field, Relationship, SQLModel
 
 
@@ -10,6 +12,47 @@ class MessageSource(str, Enum):
 
     user = "user"
     assistant = "assistant"
+
+
+class TodoStatus(str, Enum):
+    """Status of a todo item."""
+
+    open = "open"
+    done = "done"
+
+
+class Note(SQLModel, table=True):
+    """A note associated with a project."""
+
+    __tablename__ = "notes"
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    project_id: UUID = Field(foreign_key="projects.id", index=True)
+    title: str = Field(max_length=255)
+    content: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    modified: list[dict] = Field(
+        default_factory=list, sa_column=Column(JSONB, default=[])
+    )
+
+    project: "Project" = Relationship(back_populates="notes")
+
+
+class Todo(SQLModel, table=True):
+    """A todo item associated with a project."""
+
+    __tablename__ = "todos"
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    project_id: UUID = Field(foreign_key="projects.id", index=True)
+    content: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    modified: list[dict] = Field(
+        default_factory=list, sa_column=Column(JSONB, default=[])
+    )
+    status: TodoStatus = Field(default=TodoStatus.open)
+
+    project: "Project" = Relationship(back_populates="todos")
 
 
 class Project(SQLModel, table=True):
@@ -24,6 +67,14 @@ class Project(SQLModel, table=True):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
     sessions: list["ConversationSession"] = Relationship(
+        back_populates="project",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan", "lazy": "selectin"},
+    )
+    notes: list["Note"] = Relationship(
+        back_populates="project",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan", "lazy": "selectin"},
+    )
+    todos: list["Todo"] = Relationship(
         back_populates="project",
         sa_relationship_kwargs={"cascade": "all, delete-orphan", "lazy": "selectin"},
     )

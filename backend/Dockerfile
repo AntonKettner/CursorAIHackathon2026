@@ -13,6 +13,7 @@ RUN uv sync --prerelease=allow --frozen
 
 # Copy source code
 COPY mcp_server.py ./
+COPY db/ ./db/
 
 EXPOSE 8000
 
