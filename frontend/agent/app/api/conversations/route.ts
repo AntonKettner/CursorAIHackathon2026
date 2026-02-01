@@ -68,11 +68,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "projectId is required" }, { status: 400 })
     }
 
+    const startedAt = new Date().toISOString()
     const result = await query(
       `INSERT INTO conversation_sessions (id, project_id, agent_id, started_at)
-       VALUES (gen_random_uuid(), $1, $2, NOW())
+       VALUES (gen_random_uuid(), $1, $2, $3::timestamptz)
        RETURNING id, project_id, agent_id, started_at`,
-      [projectId, agentId]
+      [projectId, agentId, startedAt]
     )
 
     const session = result.rows[0]

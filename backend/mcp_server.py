@@ -353,7 +353,7 @@ async def note(
                 {
                     "title": existing_note.title,
                     "content": existing_note.content,
-                    "modifiedAt": datetime.utcnow().isoformat(),
+                    "modifiedAt": datetime.utcnow().isoformat() + "Z",
                 }
             )
 
@@ -497,7 +497,7 @@ async def todo(
                 {
                     "content": existing_todo.content,
                     "status": existing_todo.status.value,
-                    "modifiedAt": datetime.utcnow().isoformat(),
+                    "modifiedAt": datetime.utcnow().isoformat() + "Z",
                 }
             )
 

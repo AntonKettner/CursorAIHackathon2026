@@ -65,7 +65,7 @@ export function NotesPanel({
       <CardHeader className="px-4 py-0">
         <CardTitle className="text-sm flex items-center gap-2">
           <FileText className="w-4 h-4" />
-          Notes
+          Details
         </CardTitle>
         <CardAction>
           <Button

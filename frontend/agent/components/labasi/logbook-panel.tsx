@@ -359,7 +359,9 @@ function NoteEventEntry({
           <span className="text-xs text-muted-foreground">
             {formatTime(event.timestamp)}
           </span>
-          <ChevronRight className="w-3 h-3 text-muted-foreground" />
+          <div className="w-5 h-5 flex items-center justify-center">
+            <ChevronRight className="w-3 h-3 text-muted-foreground" />
+          </div>
         </div>
       </div>
     </button>
@@ -410,16 +412,20 @@ function TodoEventEntry({
         <span className="text-xs text-muted-foreground">
           {formatTime(event.timestamp)}
         </span>
-        {isCreated && (
-          <Button
-            variant="ghost"
-            size="icon-xs"
-            onClick={() => onDelete(todo.id)}
-            className="opacity-0 group-hover:opacity-100 text-destructive hover:text-destructive hover:bg-destructive/10 transition-opacity"
-          >
-            <Trash2 className="w-3 h-3" />
-          </Button>
-        )}
+        <div className="w-5 h-5 flex items-center justify-center">
+          {isCreated ? (
+            <Button
+              variant="ghost"
+              size="icon-xs"
+              onClick={() => onDelete(todo.id)}
+              className="opacity-0 group-hover:opacity-100 text-destructive hover:text-destructive hover:bg-destructive/10 transition-opacity"
+            >
+              <Trash2 className="w-3 h-3" />
+            </Button>
+          ) : (
+            <ChevronRight className="w-3 h-3 text-muted-foreground" />
+          )}
+        </div>
       </div>
     </div>
   )

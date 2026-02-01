@@ -66,11 +66,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "status must be 'open' or 'done'" }, { status: 400 })
     }
 
+    const createdAt = new Date().toISOString()
     const result = await query(
       `INSERT INTO todos (id, project_id, content, created_at, modified, status)
-       VALUES (gen_random_uuid(), $1, $2, NOW(), '[]'::jsonb, $3)
+       VALUES (gen_random_uuid(), $1, $2, $4::timestamptz, '[]'::jsonb, $3)
        RETURNING id, project_id, content, created_at, modified, status`,
-      [projectId, content, status]
+      [projectId, content, status, createdAt]
     )
 
     const todo = result.rows[0]

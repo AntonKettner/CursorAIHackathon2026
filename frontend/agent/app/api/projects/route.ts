@@ -43,11 +43,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "name is required" }, { status: 400 })
     }
 
+    const now = new Date().toISOString()
     const result = await query(
       `INSERT INTO projects (id, name, description, created_at, updated_at)
-       VALUES (gen_random_uuid(), $1, $2, NOW(), NOW())
+       VALUES (gen_random_uuid(), $1, $2, $3::timestamptz, $3::timestamptz)
        RETURNING id, name, description, created_at, updated_at`,
-      [name.trim(), description?.trim() || null]
+      [name.trim(), description?.trim() || null, now]
     )
 
     const project = result.rows[0]

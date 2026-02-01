@@ -8,12 +8,13 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
 
+    const endedAt = new Date().toISOString()
     const result = await query(
       `UPDATE conversation_sessions
-       SET ended_at = NOW()
+       SET ended_at = $2::timestamptz
        WHERE id = $1
        RETURNING id, ended_at`,
-      [id]
+      [id, endedAt]
     )
 
     if (result.rows.length === 0) {

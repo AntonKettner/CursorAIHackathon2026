@@ -61,7 +61,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "No updates provided" }, { status: 400 })
     }
 
-    updates.push(`updated_at = NOW()`)
+    const now = new Date().toISOString()
+    updates.push(`updated_at = $${paramIndex++}::timestamptz`)
+    values.push(now)
     values.push(id)
 
     const result = await query(

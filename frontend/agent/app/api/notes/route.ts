@@ -55,11 +55,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "content is required" }, { status: 400 })
     }
 
+    const createdAt = new Date().toISOString()
     const result = await query(
       `INSERT INTO notes (id, project_id, title, content, created_at, modified)
-       VALUES (gen_random_uuid(), $1, $2, $3, NOW(), '[]'::jsonb)
+       VALUES (gen_random_uuid(), $1, $2, $3, $4::timestamptz, '[]'::jsonb)
        RETURNING id, project_id, title, content, created_at, modified`,
-      [projectId, title, content]
+      [projectId, title, content, createdAt]
     )
 
     const note = result.rows[0]

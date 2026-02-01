@@ -23,11 +23,12 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       )
     }
 
+    const timestamp = new Date().toISOString()
     const result = await query(
       `INSERT INTO conversation_messages (id, session_id, content, source, timestamp)
-       VALUES (gen_random_uuid(), $1, $2, $3, NOW())
+       VALUES (gen_random_uuid(), $1, $2, $3, $4::timestamptz)
        RETURNING id, timestamp`,
-      [sessionId, content, source]
+      [sessionId, content, source, timestamp]
     )
 
     const message = result.rows[0]
