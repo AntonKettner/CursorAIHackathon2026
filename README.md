@@ -1,4 +1,4 @@
-# Labasi
+# Labasi 
 
 **Voice-first AI assistant for laboratory environments**
 
