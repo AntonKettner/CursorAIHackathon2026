@@ -9,8 +9,12 @@ from fastmcp import FastMCP
 from fastmcp.server.dependencies import get_http_headers
 from pydantic import BaseModel, Field
 from sqlmodel import select
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+from starlette.routing import Route
 
-from db import Note, Todo, TodoStatus, get_session, init_db
+from db import Note, Project, Todo, TodoStatus, get_session, init_db
+from intelligence import analyze_conversation
 
 
 @asynccontextmanager
@@ -666,6 +670,99 @@ async def todo(
             )
 
         raise ValueError(f"Invalid operation: {operation}")
+
+
+# =============================================================================
+# Proactive Intelligence Endpoint
+# =============================================================================
+
+
+async def analyze_session_endpoint(request: Request) -> JSONResponse:
+    """
+    Analyze a conversation session and automatically extract notes/todos.
+
+    This endpoint is called when a conversation ends to proactively
+    extract useful information without explicit user commands.
+    """
+    try:
+        body = await request.json()
+        session_id = body.get("sessionId")
+        project_id = body.get("projectId")
+
+        if not session_id or not project_id:
+            return JSONResponse(
+                {"error": "sessionId and projectId are required"},
+                status_code=400,
+            )
+
+        # Get project name for context
+        project_name = "Unknown Project"
+        async with get_session() as db_session:
+            stmt = select(Project).where(Project.id == UUID(project_id))
+            result = await db_session.execute(stmt)
+            project = result.scalar_one_or_none()
+            if project:
+                project_name = project.name
+
+        # Analyze the conversation
+        extraction = await analyze_conversation(
+            session_id=session_id,
+            project_id=project_id,
+            project_name=project_name,
+        )
+
+        created_notes = []
+        created_todos = []
+
+        # Create notes in database
+        async with get_session() as db_session:
+            for extracted_note in extraction.notes:
+                new_note = Note(
+                    project_id=UUID(project_id),
+                    title=extracted_note.title,
+                    content=extracted_note.content,
+                    modified=[],
+                )
+                db_session.add(new_note)
+                await db_session.flush()
+                await db_session.refresh(new_note)
+                created_notes.append({"id": str(new_note.id), "title": new_note.title})
+
+            for extracted_todo in extraction.todos:
+                new_todo = Todo(
+                    project_id=UUID(project_id),
+                    content=extracted_todo.content,
+                    status=TodoStatus.open,
+                    modified=[],
+                )
+                db_session.add(new_todo)
+                await db_session.flush()
+                await db_session.refresh(new_todo)
+                created_todos.append(
+                    {"id": str(new_todo.id), "content": new_todo.content[:50]}
+                )
+
+        return JSONResponse(
+            {
+                "success": True,
+                "created": {
+                    "notes": created_notes,
+                    "todos": created_todos,
+                },
+                "summary": f"Created {len(created_notes)} note(s) and {len(created_todos)} todo(s)",
+            }
+        )
+
+    except Exception as e:
+        return JSONResponse(
+            {"error": str(e)},
+            status_code=500,
+        )
+
+
+# Register custom routes with FastMCP's Starlette app
+analyze_route = Route("/analyze-session", analyze_session_endpoint, methods=["POST"])
+mcp.app.routes.insert(0, analyze_route)
 
 
 if __name__ == "__main__":

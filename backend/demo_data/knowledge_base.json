@@ -1,0 +1,392 @@
+{
+  "terms": [
+    {
+      "canonical": "E-Beam Lithography",
+      "aliases": ["e-beam", "ebeam", "e beam", "electron beam", "electron-beam lithography", "EBL", "e.b.l.", "ebl system", "electron beam writer"],
+      "misheard": ["e beam", "EB", "e-b", "eeb", "beab", "e beem", "electron beem", "e-b-l", "eebil", "ebeel"],
+      "description": "Electron beam lithography - nanoscale patterning technique using focused electron beam to write patterns on resist-coated substrates",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Silicon Wafer",
+      "aliases": ["Si wafer", "silicon substrate", "SI wafer", "silicone wafer", "wafer"],
+      "misheard": ["si way fur", "silicon wayfer", "silicone wafer", "sillicon", "silly cone", "SI waver", "si-wafer", "sili wafer"],
+      "description": "Thin slice of crystalline silicon used as substrate for nanofabrication",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "PMMA Resist",
+      "aliases": ["PMMA", "polymethyl methacrylate", "poly methyl methacrylate", "positive resist", "electron beam resist"],
+      "misheard": ["pmma", "p m m a", "pee em em a", "pema", "polymer resist", "poly ma", "p double m a"],
+      "description": "Positive electron beam resist - poly(methyl methacrylate) used for high-resolution EBL patterning",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Spin Coating",
+      "aliases": ["spin coat", "spin-coating", "spinning", "spin coater"],
+      "misheard": ["spin coding", "spin quoting", "spin coating", "spincoat", "spin code"],
+      "description": "Technique to deposit thin uniform films on flat substrates by spinning at high RPM",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Gold Nanoantennas",
+      "aliases": ["Au nanoantennas", "gold nano-antennas", "plasmonic antennas", "gold antennas", "nano antennas"],
+      "misheard": ["gold nano antennas", "gold antenna", "nano antenna", "gold nano antena", "golden antenna", "au antenna"],
+      "description": "Nanoscale gold structures that enhance electromagnetic fields for biosensing applications",
+      "category": "nanophotonics"
+    },
+    {
+      "canonical": "Nanofluidic Chip",
+      "aliases": ["nanofluidics chip", "nano-fluidic device", "nanofluidic device", "nano channel chip"],
+      "misheard": ["nanofluidic", "nano fluid", "nano fluidic ship", "nano flu idic", "nanofluidics"],
+      "description": "Microdevice with nanoscale channels for controlled fluid transport and single-molecule sensing",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "PDMS",
+      "aliases": ["polydimethylsiloxane", "silicone rubber", "Sylgard", "Sylgard 184"],
+      "misheard": ["pdms", "p d m s", "pee dee em es", "pdm s", "poly dimethyl", "pdmz", "pedims"],
+      "description": "Polydimethylsiloxane - flexible polymer used for soft lithography molds and microfluidic devices",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Soft Lithography",
+      "aliases": ["soft litho", "replica molding", "micro molding", "nanoimprint"],
+      "misheard": ["soft litho", "soft lithografy", "soft lito", "soft litography"],
+      "description": "Technique using elastomeric stamps/molds to replicate micro/nanostructures",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "UV Curing",
+      "aliases": ["UV cure", "ultraviolet curing", "photocuring", "UV polymerization"],
+      "misheard": ["uv cure", "uv curing", "you vee cure", "uvi curing", "ultra violet"],
+      "description": "Process of hardening polymers using ultraviolet light exposure",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Thermal Evaporation",
+      "aliases": ["evaporation", "e-beam evaporation", "metal deposition", "PVD"],
+      "misheard": ["thermal evaporation", "evap", "e vap", "evaporator", "evaperation"],
+      "description": "Physical vapor deposition technique for depositing thin metal films",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Sputtering",
+      "aliases": ["sputter coating", "sputter deposition", "magnetron sputtering"],
+      "misheard": ["sputtering", "sputter", "sputtering", "spluttering", "spattering", "sputering"],
+      "description": "PVD technique using plasma to eject atoms from target material onto substrate",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Lift-off Process",
+      "aliases": ["lift off", "liftoff", "metal lift-off", "resist lift-off"],
+      "misheard": ["lift off", "liftoff", "lift of", "lif off"],
+      "description": "Patterning technique where metal is deposited over resist then removed with the resist, leaving patterned metal",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Cy5",
+      "aliases": ["Cyanine 5", "Cy5 dye", "Cy-5", "cyanine five", "Cy5 mono NHS ester"],
+      "misheard": ["cy five", "c y 5", "si five", "sigh five", "cy 5", "see why five", "psi five", "cy fife"],
+      "description": "Far-red fluorescent cyanine dye (excitation ~649nm, emission ~670nm) commonly used for labeling biomolecules",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Cy3",
+      "aliases": ["Cyanine 3", "Cy3 dye", "Cy-3", "cyanine three"],
+      "misheard": ["cy three", "c y 3", "si three", "cy 3", "see why three"],
+      "description": "Orange fluorescent cyanine dye (excitation ~550nm, emission ~570nm) commonly paired with Cy5",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "FRET",
+      "aliases": ["Forster resonance energy transfer", "fluorescence resonance energy transfer", "FRET pair"],
+      "misheard": ["fret", "f r e t", "ef ret", "frett", "fred"],
+      "description": "Energy transfer between donor and acceptor fluorophores for distance measurements",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "NHS Ester",
+      "aliases": ["N-hydroxysuccinimide ester", "NHS", "succinimidyl ester", "reactive NHS"],
+      "misheard": ["nhs ester", "n h s", "enhs", "nhs esther", "en ach es"],
+      "description": "Reactive group for conjugating dyes to amine groups on proteins/nucleic acids",
+      "category": "biochemistry"
+    },
+    {
+      "canonical": "mRNA",
+      "aliases": ["messenger RNA", "messenger ribonucleic acid", "m-RNA"],
+      "misheard": ["m rna", "em rna", "mrna", "messenger", "em are en ay"],
+      "description": "Single-stranded RNA that carries genetic information from DNA for protein synthesis",
+      "category": "molecular_biology"
+    },
+    {
+      "canonical": "miRNA",
+      "aliases": ["microRNA", "micro RNA", "mi-RNA", "small RNA"],
+      "misheard": ["my rna", "mi rna", "micro rna", "my are en ay", "mirna"],
+      "description": "Small non-coding RNA molecules (~22 nucleotides) that regulate gene expression",
+      "category": "molecular_biology"
+    },
+    {
+      "canonical": "TIRF Microscopy",
+      "aliases": ["total internal reflection fluorescence", "TIRF", "evanescent wave microscopy"],
+      "misheard": ["tirf", "t i r f", "terf", "tir f", "tier f", "turf microscopy"],
+      "description": "Fluorescence microscopy technique using evanescent waves for surface-selective imaging",
+      "category": "microscopy"
+    },
+    {
+      "canonical": "Confocal Microscopy",
+      "aliases": ["confocal", "CLSM", "confocal laser scanning microscopy", "laser scanning confocal"],
+      "misheard": ["confocal", "con focal", "confocle", "confocul", "cone focal"],
+      "description": "Optical microscopy using point illumination and pinhole to eliminate out-of-focus light",
+      "category": "microscopy"
+    },
+    {
+      "canonical": "Fluorescence Microscope",
+      "aliases": ["fluorescence microscopy", "fluorescent microscope", "epi-fluorescence"],
+      "misheard": ["flourescence", "flouresence", "fluorecence", "florescent", "fluoresent"],
+      "description": "Microscope that uses fluorescence to study properties of organic/inorganic substances",
+      "category": "microscopy"
+    },
+    {
+      "canonical": "Plasma Treatment",
+      "aliases": ["oxygen plasma", "plasma cleaning", "plasma activation", "O2 plasma"],
+      "misheard": ["plasma", "plasma treatment", "plazma", "plasma clean"],
+      "description": "Surface treatment using ionized gas to clean and activate surfaces for bonding",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "RIE",
+      "aliases": ["reactive ion etching", "plasma etching", "dry etching"],
+      "misheard": ["r i e", "ree", "rye", "rie etching", "reactive ion"],
+      "description": "Anisotropic dry etching technique using chemically reactive plasma",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "Photoresist",
+      "aliases": ["resist", "photo resist", "PR", "positive resist", "negative resist"],
+      "misheard": ["photo resist", "photoresist", "foto resist", "photo rezist"],
+      "description": "Light-sensitive material used to form patterned coating on surfaces",
+      "category": "nanofabrication"
+    },
+    {
+      "canonical": "SEM",
+      "aliases": ["scanning electron microscope", "scanning electron microscopy", "electron microscope"],
+      "misheard": ["sem", "s e m", "ess ee em", "s.e.m.", "scanning electron"],
+      "description": "Microscope producing images by scanning with focused electron beam",
+      "category": "microscopy"
+    },
+    {
+      "canonical": "AFM",
+      "aliases": ["atomic force microscope", "atomic force microscopy", "AFM probe"],
+      "misheard": ["afm", "a f m", "ay ef em", "a.f.m.", "atomic force"],
+      "description": "High-resolution scanning probe microscope measuring surface topography at nanoscale",
+      "category": "microscopy"
+    },
+    {
+      "canonical": "Clean Room",
+      "aliases": ["cleanroom", "clean-room", "fab", "fabrication facility", "ISO class"],
+      "misheard": ["clean room", "cleanroom", "clean rum", "cream room"],
+      "description": "Controlled environment with low levels of pollutants for semiconductor/nanofab work",
+      "category": "facility"
+    },
+    {
+      "canonical": "PBS Buffer",
+      "aliases": ["phosphate buffered saline", "PBS", "phosphate buffer"],
+      "misheard": ["pbs", "p b s", "pee bee ess", "phosphate buffer saline", "pbs buffer"],
+      "description": "Isotonic buffer solution commonly used in biological research",
+      "category": "biochemistry"
+    },
+    {
+      "canonical": "Tris Buffer",
+      "aliases": ["Tris", "tris-HCl", "Tris base", "tris buffer"],
+      "misheard": ["tris", "triss", "trees", "tris buffer", "tree s"],
+      "description": "Common biological buffer - tris(hydroxymethyl)aminomethane",
+      "category": "biochemistry"
+    },
+    {
+      "canonical": "EDTA",
+      "aliases": ["ethylenediaminetetraacetic acid", "chelating agent", "EDTA solution"],
+      "misheard": ["edta", "e d t a", "ee dee tee ay", "edita", "e.d.t.a."],
+      "description": "Chelating agent that sequesters metal ions, used in buffers and to inhibit nucleases",
+      "category": "biochemistry"
+    },
+    {
+      "canonical": "PCR",
+      "aliases": ["polymerase chain reaction", "PCR amplification", "thermal cycling"],
+      "misheard": ["pcr", "p c r", "pee see are", "p.c.r.", "pc r"],
+      "description": "Method to amplify specific DNA sequences through repeated thermal cycles",
+      "category": "molecular_biology"
+    },
+    {
+      "canonical": "Plasmonic Enhancement",
+      "aliases": ["plasmon enhancement", "LSPR", "localized surface plasmon resonance", "plasmonic"],
+      "misheard": ["plasmonic", "plasmon", "plazmonic", "plasma enhancement", "plasmonic enhancment"],
+      "description": "Amplification of electromagnetic fields near metal nanostructures due to plasmon resonance",
+      "category": "nanophotonics"
+    },
+    {
+      "canonical": "Signal-to-Noise Ratio",
+      "aliases": ["SNR", "S/N ratio", "signal to noise", "S/N"],
+      "misheard": ["snr", "s n r", "signal noise", "ess en are", "signal to noice"],
+      "description": "Ratio comparing desired signal level to background noise level",
+      "category": "measurement"
+    },
+    {
+      "canonical": "Photobleaching",
+      "aliases": ["bleaching", "photo bleaching", "fluorophore degradation"],
+      "misheard": ["photo bleaching", "photobleaching", "photo bleching", "foto bleaching"],
+      "description": "Photochemical destruction of fluorophore reducing fluorescence over time",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Hybridization",
+      "aliases": ["DNA hybridization", "RNA hybridization", "annealing", "probe hybridization"],
+      "misheard": ["hybridization", "hybridisation", "hybradization", "high-bridization"],
+      "description": "Process of combining complementary single-stranded nucleic acids into double-stranded molecule",
+      "category": "molecular_biology"
+    },
+    {
+      "canonical": "Oligonucleotide",
+      "aliases": ["oligo", "oligonucleotides", "oligos", "synthetic DNA", "primer"],
+      "misheard": ["oligo", "olige", "oligonuc", "ollie go", "oligon"],
+      "description": "Short single-stranded DNA or RNA sequence, typically 13-25 nucleotides",
+      "category": "molecular_biology"
+    },
+    {
+      "canonical": "Nanometers",
+      "aliases": ["nm", "nanometer", "nano meters"],
+      "misheard": ["nanometers", "nano meters", "nanometres", "nano m", "nanomiter"],
+      "description": "Unit of length equal to one billionth of a meter (10^-9 m)",
+      "category": "measurement"
+    },
+    {
+      "canonical": "Microliters",
+      "aliases": ["uL", "microlitre", "micro L", "microliter"],
+      "misheard": ["microliters", "micro liters", "micro L", "my crow liters", "microlitters"],
+      "description": "Unit of volume equal to one millionth of a liter (10^-6 L)",
+      "category": "measurement"
+    },
+    {
+      "canonical": "Femtomolar",
+      "aliases": ["fM", "femto molar", "femtomol", "femto M"],
+      "misheard": ["femtomolar", "fem toe molar", "femto molar", "fento molar", "f m"],
+      "description": "Concentration unit equal to 10^-15 moles per liter",
+      "category": "measurement"
+    },
+    {
+      "canonical": "Picomolar",
+      "aliases": ["pM", "pico molar", "picomol", "pico M"],
+      "misheard": ["picomolar", "pico molar", "peek oh molar", "p m", "picco molar"],
+      "description": "Concentration unit equal to 10^-12 moles per liter",
+      "category": "measurement"
+    },
+    {
+      "canonical": "IPA",
+      "aliases": ["isopropyl alcohol", "isopropanol", "2-propanol", "rubbing alcohol"],
+      "misheard": ["ipa", "i p a", "eye pee ay", "ipa alcohol", "i.p.a."],
+      "description": "Isopropyl alcohol - common solvent for cleaning in nanofabrication",
+      "category": "chemicals"
+    },
+    {
+      "canonical": "Acetone",
+      "aliases": ["propanone", "dimethyl ketone", "acetone wash"],
+      "misheard": ["acetone", "aceton", "acetoan", "asetone"],
+      "description": "Organic solvent used for resist removal and cleaning",
+      "category": "chemicals"
+    },
+    {
+      "canonical": "DI Water",
+      "aliases": ["deionized water", "ultrapure water", "MilliQ", "Milli-Q water", "type 1 water"],
+      "misheard": ["di water", "d i water", "dee eye water", "deionized", "millique"],
+      "description": "Highly purified water with ions removed, essential for sensitive applications",
+      "category": "chemicals"
+    },
+    {
+      "canonical": "Piranha Solution",
+      "aliases": ["piranha", "piranha etch", "sulfuric peroxide", "SPM"],
+      "misheard": ["piranha", "pirrana", "pirahna", "pirana solution"],
+      "description": "Highly corrosive mixture of sulfuric acid and hydrogen peroxide for cleaning",
+      "category": "chemicals"
+    },
+    {
+      "canonical": "Hotplate",
+      "aliases": ["hot plate", "heating plate", "bake plate"],
+      "misheard": ["hotplate", "hot plate", "hot plait", "heat plate"],
+      "description": "Heated surface for baking resist and temperature-controlled processes",
+      "category": "equipment"
+    },
+    {
+      "canonical": "Sonicator",
+      "aliases": ["ultrasonic bath", "sonication", "ultrasonic cleaner", "sonic bath"],
+      "misheard": ["sonicator", "sonic ator", "sonnicator", "sonificator", "sonic cleaner"],
+      "description": "Equipment using ultrasonic waves for cleaning and dispersing samples",
+      "category": "equipment"
+    },
+    {
+      "canonical": "Desiccator",
+      "aliases": ["desiccator cabinet", "dry box", "vacuum desiccator"],
+      "misheard": ["desiccator", "dessicator", "desicator", "desi cator"],
+      "description": "Sealed container with desiccant for storing moisture-sensitive materials",
+      "category": "equipment"
+    },
+    {
+      "canonical": "Glovebox",
+      "aliases": ["glove box", "inert atmosphere box", "nitrogen box", "argon box"],
+      "misheard": ["glovebox", "glove box", "gluf box", "glove bocks"],
+      "description": "Sealed container with controlled atmosphere for handling sensitive materials",
+      "category": "equipment"
+    },
+    {
+      "canonical": "Fluorophore",
+      "aliases": ["fluorescent dye", "fluorescent label", "fluorescent probe", "fluorochrome"],
+      "misheard": ["fluorophore", "florophore", "flourophore", "fluro four", "fluro-for"],
+      "description": "Molecule that can re-emit light upon excitation, used for labeling",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Excitation Wavelength",
+      "aliases": ["excitation", "Ex wavelength", "excitation lambda"],
+      "misheard": ["excitation", "exitation", "ex wavelength", "ex citation"],
+      "description": "Wavelength of light used to excite a fluorophore",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Emission Wavelength",
+      "aliases": ["emission", "Em wavelength", "emission lambda", "fluorescence emission"],
+      "misheard": ["emission", "emmision", "em wavelength", "emision"],
+      "description": "Wavelength of light emitted by fluorophore after excitation",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Quantum Yield",
+      "aliases": ["QY", "fluorescence quantum yield", "quantum efficiency"],
+      "misheard": ["quantum yield", "quantum yeild", "q y", "quantum yeld"],
+      "description": "Ratio of photons emitted to photons absorbed by fluorophore",
+      "category": "fluorescence"
+    },
+    {
+      "canonical": "Extinction Coefficient",
+      "aliases": ["molar extinction coefficient", "absorptivity", "epsilon"],
+      "misheard": ["extinction coefficient", "extinction coeff", "extinction co efficient"],
+      "description": "Measure of how strongly a substance absorbs light at specific wavelength",
+      "category": "measurement"
+    }
+  ],
+  "categories": {
+    "nanofabrication": "Terms related to nanoscale fabrication processes",
+    "nanophotonics": "Terms related to light-matter interactions at nanoscale",
+    "fluorescence": "Terms related to fluorescence spectroscopy and imaging",
+    "microscopy": "Terms related to microscopy techniques",
+    "molecular_biology": "Terms related to DNA, RNA, and molecular biology",
+    "biochemistry": "Terms related to biochemical processes and buffers",
+    "measurement": "Terms related to units and measurement",
+    "chemicals": "Terms related to chemicals and solvents",
+    "equipment": "Terms related to laboratory equipment",
+    "facility": "Terms related to laboratory facilities"
+  },
+  "context_hints": {
+    "cleanroom_context": ["e-beam", "spin coating", "evaporation", "resist", "wafer", "lithography"],
+    "biolab_context": ["Cy5", "RNA", "fluorescence", "hybridization", "buffer", "microscope"],
+    "measurement_context": ["nm", "uL", "fM", "pM", "SNR"]
+  }
+}
